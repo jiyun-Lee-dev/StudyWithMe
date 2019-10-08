@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".SecondActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Board.MyBoard"></activity>
+        <activity android:name=".Board.Write_Board"></activity>
     </application>
 
 </manifest>
