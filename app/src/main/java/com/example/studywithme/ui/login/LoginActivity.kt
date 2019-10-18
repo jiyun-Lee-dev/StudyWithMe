@@ -18,6 +18,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.studywithme.R
 import com.example.studywithme.SecondActivity
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -97,6 +98,11 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
                 val intent= Intent(this@LoginActivity, SecondActivity::class.java)
                 startActivity(intent)
+            }
+            sign_up.setOnClickListener {
+
+                val intent2= Intent(this@LoginActivity, SecondActivity::class.java)
+                startActivity(intent2)
             }
         }
     }

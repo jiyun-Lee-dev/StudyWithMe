@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.studywithme">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,6 +23,8 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Board.MyBoard"></activity>
         <activity android:name=".Board.Write_Board"></activity>
+        <activity android:name=".Board.WholeBoard"></activity>
+        <activity android:name=".Sign_up_Activity"></activity>
     </application>
 
 </manifest>
