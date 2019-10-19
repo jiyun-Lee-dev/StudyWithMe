@@ -10,7 +10,7 @@ class BoardAdapter(private val fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         when (position) {
-            0 -> return AllboardFrag()
+            0 -> return WholeboardFrag()
             else -> return MyboardFrag()
         }
     }

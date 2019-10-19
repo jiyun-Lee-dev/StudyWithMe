@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Board.MyboardFrag">
+    tools:context=".Board.WholeboardFrag">
 
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
             </LinearLayout>
         </LinearLayout>
 
+
         <LinearLayout
             android:id="@+id/layout_2"
             android:layout_width="match_parent"
@@ -55,54 +57,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="목표 선택:"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="5dp"
-                    />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     />
                 <Spinner
-                    android:id="@+id/spinner_goal"
+                    android:id="@+id/spinner_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dialog"
+                    android:spinnerMode="dropdown"
                     android:layout_gravity="end"
-                    android:textColor = "#000000"
+                    android:entries="@array/search"
                     />
             </LinearLayout>
-
             <TextView
                 android:id="@+id/goal_text"
-                android:layout_width="249dp"
-                android:layout_height="41dp"
-                android:textSize="20dp" />
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"/>
 
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/write_button"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="+ 게시글 작성"
-                android:textSize="11dp"
-                android:layout_marginRight="13dp"
-                android:background="@drawable/ggboard_btn_shape"
-                android:layout_gravity="end|bottom"
-                android:textColor="#ffffff"
-                />
         </LinearLayout>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
