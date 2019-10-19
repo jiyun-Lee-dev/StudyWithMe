@@ -1,10 +1,9 @@
-package com.example.studywithme
+package com.example.studywithme.recommend
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.studywithme.recommend.InfoFrag
-import com.example.studywithme.recommend.UserFrag
+
 
 class RecommendAdapter(private val fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

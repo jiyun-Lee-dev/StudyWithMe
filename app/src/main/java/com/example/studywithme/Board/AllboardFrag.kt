@@ -13,13 +13,13 @@ import android.view.ViewGroup
 import com.example.studywithme.R
 
 
-class AllFrag : Fragment() {
+class AllboardFrag : Fragment() {
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all, container, false)
+        return inflater.inflate(R.layout.fragment_allboard, container, false)
     }
 }

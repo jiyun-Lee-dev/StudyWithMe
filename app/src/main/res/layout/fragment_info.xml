@@ -9,6 +9,6 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent"
-        android:text="Fragment Voice Call" />
+        android:text="정보 추천" />
 
 </android.support.constraint.ConstraintLayout>

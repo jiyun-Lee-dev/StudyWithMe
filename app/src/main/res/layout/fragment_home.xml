@@ -3,12 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".fragment.Home">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">>
+
+            <Button
+                android:id="@+id/jinju"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/yejin"
+                android:text="jinju"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/jiyun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/jinju"
+                android:text="jiyun"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/yejin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="yejin"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/hyewon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/jiyun"
+                android:text="hyewon"
+                tools:ignore="MissingConstraints" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>
