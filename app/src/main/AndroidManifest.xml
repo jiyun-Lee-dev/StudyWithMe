@@ -1,36 +1,19 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.studywithme_hey1">
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-=======
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.studywithme">
 
+
+<!--    // Todo 인터넷 접근 허용 퍼미션(혜원)-->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.login.LoginActivity">
             <intent-filter>
@@ -41,7 +24,11 @@
         </activity>
         <activity android:name=".SecondActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Board.MyBoard"></activity>
+        <activity android:name=".Board.Write_Board"></activity>
+        <activity android:name=".ui.scheduling.Goal_Main"></activity>
+        <activity android:name=".ui.scheduling.View_Today_Acheivement"></activity>
+        <activity android:name=".ui.scheduling.View_Todo_Acheivement"></activity>
     </application>
 
->>>>>>> 3d9df385c699eb73c0c70913f705c50abacc7f8d
 </manifest>
