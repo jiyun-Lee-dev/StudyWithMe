@@ -16,17 +16,24 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.SecondActivity
+import com.example.studywithme.signup.SignUpActivity
+import kotlinx.android.synthetic.main.activity_login.*
+
+
+private lateinit var loginViewModel: LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var loginViewModel: LoginViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
+
+        signup.setOnClickListener {
+            val intent= Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
@@ -95,9 +102,10 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
-                val intent= Intent(this@LoginActivity, SecondActivity::class.java)
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
             }
+
         }
     }
 
