@@ -10,11 +10,10 @@ class SecondActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        //본인이 넘어가고 싶은 화면이 있으면 저  secondactivity 부분에 넘어가려는 클래스 이름 적으면 됨
-       /* yejin.setOnClickListener{
-            val intent_yejin= Intent(this, SecondActivity::class.java)
-            startActivity(intent_yejin)
-        }*/
+        jiyun.setOnClickListener {
+            val nextIntent = Intent(this, BookmarkActivity_main::class.java)
+            startActivity(nextIntent)
+        }
     }
 
 }
