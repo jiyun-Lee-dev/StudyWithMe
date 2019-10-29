@@ -1,3 +1,19 @@
+<<<<<<< HEAD
 <resources>
     <string name="app_name">StudyWithMe_hey1</string>
 </resources>
+=======
+<resources>
+    <string name="app_name">StudyWithMe</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="description_imageView">Study With Me Logo</string>
+</resources>
+>>>>>>> 3d9df385c699eb73c0c70913f705c50abacc7f8d
