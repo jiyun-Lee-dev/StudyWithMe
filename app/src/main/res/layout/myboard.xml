@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+      >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_1"
+            >
+
+            <Button
+                android:id="@+id/btn_wholeboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/gboard_btn_shape"
+                android:text="전체 게시판"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_myboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 게시판"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:background="@drawable/mboard_button_shape"
+                tools:ignore="MissingConstraints"/>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#273238"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_weight="2.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="검색어를 입력하세요."
+                android:ems="15"
+                android:textSize="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:textColorHint="#e0e0e0"
+                android:gravity="center"
+              />
+                <ImageButton
+                    android:paddingTop="5dp"
+                    android:layout_weight="1"
+                    android:layout_width="12dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/search_icon"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목표 선택:"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+            />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+            <Spinner
+                android:id="@+id/spinner_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:layout_gravity="end"
+                android:entries="@array/goal"
+            />
+        </LinearLayout>
+            <TextView
+                android:id="@+id/goal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            android:text="test"
+            android:textSize="15dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:orientation="vertical">
+
+      <Button
+          android:id="@+id/write_button"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:text="+ 게시글 작성"
+          android:textSize="11dp"
+          android:layout_marginRight="13dp"
+          android:background="@drawable/ggboard_btn_shape"
+          android:layout_gravity="end|bottom"
+          android:textColor="#ffffff"
+      />
+
+    </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
