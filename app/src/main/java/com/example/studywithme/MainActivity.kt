@@ -68,6 +68,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.content, recommendFrag).commit()
             bottomNavi.setSelectedItemId(R.id.action_recommend)
         }
+        if(index==3){
+            supportFragmentManager.beginTransaction().replace(R.id.content, calendarFrag).commit()
+            bottomNavi.setSelectedItemId(R.id.action_calendar)
+        }
+        if(index==4){
+            supportFragmentManager.beginTransaction().replace(R.id.content, bookmarkFrag).commit()
+            bottomNavi.setSelectedItemId(R.id.action_bookmark)
+        }
     }
 
 

@@ -14,9 +14,7 @@ class Board : Fragment() {
     var tabLayout: TabLayout? = null
     var viewPager: ViewPager? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_board, container, false)
 
         tabLayout = view.findViewById(R.id.board_tabs)

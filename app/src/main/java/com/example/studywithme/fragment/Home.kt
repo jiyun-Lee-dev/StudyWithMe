@@ -17,6 +17,7 @@ import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import android.text.TextUtils.replace
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_second.*
 
 
 class Home : Fragment() {
@@ -39,6 +40,8 @@ class Home : Fragment() {
 
         val yejin = view.findViewById<Button>(R.id.yejin)
         val jinju = view.findViewById<Button>(R.id.jinju)
+        val hyewon = view.findViewById<Button>(R.id.hyewon)
+        val jiyun = view.findViewById<Button>(R.id.jiyun)
 
         yejin.setOnClickListener(object :View.OnClickListener {
             override fun onClick(v: View?) {
@@ -48,6 +51,16 @@ class Home : Fragment() {
         jinju.setOnClickListener(object :View.OnClickListener {
             override fun onClick(v: View?) {
                 activity?.onFragmentChange(2)
+            }
+        })
+        hyewon.setOnClickListener(object :View.OnClickListener {
+            override fun onClick(v: View?) {
+                activity?.onFragmentChange(3)
+            }
+        })
+        jiyun.setOnClickListener(object :View.OnClickListener {
+            override fun onClick(v: View?) {
+                activity?.onFragmentChange(4)
             }
         })
 
