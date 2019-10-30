@@ -23,38 +23,39 @@ import org.json.JSONObject
 import java.io.IOException
 
 
+class Calendar :DialogFragment() {
 
-
-
-class Calendar :DialogFragment(){
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        val url="http://10.0.2.2:8080/getjson.php"
+        val url = "http://10.0.2.2:8080/getjson.php"
         val client = OkHttpClient()
         val request = Request.Builder().url(url).build()
-        client.newCall(request).enqueue(object: Callback {
-            override fun onFailure(call: Call, e: IOException){
-                Log.e("응답 fail",e.toString())
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("응답 fail", e.toString())
             }
-            override fun onResponse(call: Call, response: Response){
+
+            override fun onResponse(call: Call, response: Response) {
                 var data = response?.body?.string()
                 var root = JSONArray(data)
-                Log.d("goal_table",root.getJSONObject(0).toString())
+                Log.d("goal_table", root.getJSONObject(0).toString())
             }
         })
 
-        fun getJsonObject(jsonString: String){
+        fun getJsonObject(jsonString: String) {
             val jObject = JSONObject(jsonString)
             var goal_table = jObject.getString("use_id")
             Log.d("json객체출력(goal_table", goal_table)
         }
 
 
-
-        val button_view_todo_acheivement = view.findViewById<Button>(R.id.button_view_todo_acheivement)
+        val button_view_todo_acheivement =
+            view.findViewById<Button>(R.id.button_view_todo_acheivement)
         button_view_todo_acheivement.setOnClickListener {
             val intent = Intent(activity, View_Todo_Acheivement::class.java)
             startActivity(intent)
@@ -86,11 +87,12 @@ class Calendar :DialogFragment(){
                 .show() */
         }
 
-    return view
+        return view
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
+
 }

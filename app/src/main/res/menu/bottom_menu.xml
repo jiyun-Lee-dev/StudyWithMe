@@ -27,5 +27,4 @@
         android:icon="@drawable/ic_bookmark_black_24dp"
         android:title="bookmark" />
 
-
 </menu>
