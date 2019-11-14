@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@drawable/bookmark_category_list_item_border">
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/categoryName_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/bookmark_category_list_item_categoryName"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="6dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="CategoryName" />
+
+            <TextView
+                android:id="@+id/bookmark_category_list_item_detailedWork"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/bookmark_category_list_item_categoryName"
+                tools:text="DetailedWork" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bookmark_category_show_links_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@android:drawable/arrow_down_float"
+            />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

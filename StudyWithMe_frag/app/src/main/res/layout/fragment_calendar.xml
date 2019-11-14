@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.Calendar">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:paddingTop="0dp"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/Goal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목표이름"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft = "30dp" />
+
+            <TextView
+                android:id="@+id/D_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D-DAY"
+                android:textSize="35sp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight = "10dp" />
+
+
+        </LinearLayout>
+        <!--        목표이름 아래 선 -->
+        <View
+            android:id="@+id/line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#000000" />
+
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해내야만 하는 일들"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="25dp"
+                />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="남은 기간"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="완료"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp" />
+        </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fillViewport="true">
+
+            <GridLayout
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="5"
+                >
+                <TextView
+                    android:id="@+id/to_do1"
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/round_square_darkgray"
+                    android:gravity="center_horizontal"
+                    android:text="할일 1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="20dp" />
+
+
+                <TextView
+                    android:id="@+id/to_do_dday1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/round_square_light_gray"
+                    android:gravity="center_horizontal"
+                    android:text="D_day1"
+                    android:textSize="22sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_goal1"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5" />
+
+                <TextView
+                    android:id="@+id/To_do2"
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/round_square_darkgray"
+                    android:gravity="center_horizontal"
+                    android:text="할일 2"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"/>
+
+
+                <TextView
+                    android:id="@+id/to_do_dday2"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="D_day2"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_square_light_gray"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkBox_goal2"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/To_do3"
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/round_square_darkgray"
+                    android:gravity="center_horizontal"
+                    android:text="할일 3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp" />
+
+
+                <TextView
+                    android:id="@+id/to_do_dday3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/round_square_light_gray"
+                    android:gravity="center_horizontal"
+                    android:text="D_day3"
+                    android:layout_marginTop="10dp"
+                    android:textSize="22sp" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox_goal3"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:id="@+id/To_do4"
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/round_square_darkgray"
+                    android:gravity="center_horizontal"
+                    android:text="할일 4"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp" />
+
+
+                <TextView
+                    android:id="@+id/to_do_dday4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/round_square_light_gray"
+                    android:gravity="center_horizontal"
+                    android:text="D_day4"
+                    android:layout_marginTop="10dp"
+                    android:textSize="22sp" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox_goal4"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp" />
+
+            </GridLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_weight="0.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_add_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/round_square_darkgray"
+                android:text="할일추가"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="벌써 이만큼 달성했어요!"
+                android:textColor="#83CAC8"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#83cac5"
+            >
+
+            <Button
+                android:id="@+id/button_view_todo_acheivement"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="할일별"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="43dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="오늘"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="43dp" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="이번달"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="43dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
