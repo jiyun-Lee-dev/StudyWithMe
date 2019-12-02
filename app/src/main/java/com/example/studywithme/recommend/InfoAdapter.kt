@@ -1,26 +1,51 @@
 package com.example.studywithme.recommend
 
-
-import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
+import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-
+import android.widget.Toast
 import com.example.studywithme.R
+import com.example.studywithme.SecondActivity
+import com.example.studywithme.bookmark.BookmarkActivity_main
+import com.example.studywithme.data.InfoRecommend
+import kotlinx.android.synthetic.main.recommend_info_item.view.*
+import java.security.AccessController.getContext
 
-/**
- * A simple [Fragment] subclass.
- */
-class InfoAdapter : Fragment() {
+class InfoAdapter(val context: Context, val items: MutableList<InfoRecommend>): RecyclerView.Adapter<InfoAdapter.InfoViewHolder> (){
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info_adapter, container, false)
+    var tvUrl:String = ""
+
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = InfoViewHolder(parent)
+
+    override fun getItemCount(): Int = items.size
+
+    override fun onBindViewHolder(holder: InfoViewHolder, position: Int) {
+        items[position].let { item ->
+            with(holder) {
+                tvHeader.text = item.header
+                tvContent.text = item.content
+                tvUrl =item.url
+            }
+        }
+
+        holder?.itemView?.setOnClickListener {
+            val intent = Intent(ACTION_VIEW, Uri.parse(items[position].url))
+            context.startActivity(intent)
+            //Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+        }
+
     }
 
+    inner class InfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.recommend_info_item, parent, false)) {
+        val tvHeader = itemView.recommend_info_header
+        val tvContent = itemView.recommend_info_content
+    }
 
 }

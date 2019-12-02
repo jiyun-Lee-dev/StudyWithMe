@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.studywithme.R
 import com.example.studywithme.scheduling.AddGoalDialog
 import com.example.studywithme.scheduling.View_Todo_Acheivement
@@ -25,12 +26,25 @@ import java.io.IOException
 
 class Calendar :DialogFragment() {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val Goal_name=view?.findViewById<TextView>(R.id.Goal_name)
+        val args=getArguments()
+        if (args != null) {
+            //val mArgs = arguments
+            var goal_name= args?.getString("goal_name")
+            Log.d("get", goal_name)
+            Goal_name?.setText(goal_name)
+            Log.d("Goal_name", Goal_name?.text.toString())
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
+        val view= inflater.inflate(R.layout.fragment_calendar, container, false)
 
         val url = "http://10.0.2.2:8080/getjson.php"
         val client = OkHttpClient()

@@ -9,9 +9,7 @@ import android.view.ViewGroup
 
 import com.example.studywithme.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class Profile : Fragment() {
 
     override fun onCreateView(

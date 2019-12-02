@@ -1,10 +1,13 @@
 package com.example.studywithme
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Button
+import com.example.studywithme.Board.Write_Board
 import com.example.studywithme.fragment.*
 import com.example.studywithme.recommend.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,7 +60,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomNavi.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         bottomNavi.setSelectedItemId(R.id.action_home)
+
+
     }
+
+
 
     fun onFragmentChange(index: Int) {
         if(index==1){
@@ -70,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         }
         if(index==3){
             supportFragmentManager.beginTransaction().replace(R.id.content, calendarFrag).commit()
-            bottomNavi.setSelectedItemId(R.id.action_calendar)
         }
         if(index==4){
             supportFragmentManager.beginTransaction().replace(R.id.content, bookmarkFrag).commit()

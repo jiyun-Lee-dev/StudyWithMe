@@ -17,6 +17,8 @@ import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import android.text.TextUtils.replace
 import android.util.Log
+import android.widget.ImageButton
+import com.example.studywithme.scheduling.AddGoalDialog
 import kotlinx.android.synthetic.main.activity_second.*
 
 
@@ -38,31 +40,26 @@ class Home : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val yejin = view.findViewById<Button>(R.id.yejin)
-        val jinju = view.findViewById<Button>(R.id.jinju)
-        val hyewon = view.findViewById<Button>(R.id.hyewon)
-        val jiyun = view.findViewById<Button>(R.id.jiyun)
+        val toolbar_btn_profile= view.findViewById<ImageButton>(R.id.toolbar_btn_profile)
 
-        yejin.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(v: View?) {
-                activity?.onFragmentChange(1)
-            }
-        })
-        jinju.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(v: View?) {
-                activity?.onFragmentChange(2)
-            }
-        })
-        hyewon.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(v: View?) {
-                activity?.onFragmentChange(3)
-            }
-        })
-        jiyun.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(v: View?) {
-                activity?.onFragmentChange(4)
-            }
-        })
+        toolbar_btn_profile.setOnClickListener{
+            val fragment = Profile() // Fragment 생성
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+        }
+
+
+        val home_add_todo = view.findViewById<Button>(R.id.home_add_todo)
+        val home_add_goal = view.findViewById<Button>(R.id.home_add_goal)
+
+
+        home_add_goal.setOnClickListener {
+            val myDialogFragment = AddGoalDialog()
+            myDialogFragment.setTargetFragment(this, 0)
+            myDialogFragment.show(fragmentManager!!, "Search Filter")
+        }
+
 
         return view
     }
