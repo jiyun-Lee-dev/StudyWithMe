@@ -11,7 +11,10 @@ class SecondActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-
+        jiyun.setOnClickListener {
+            val nextIntent = Intent(this, BookmarkActivity_main::class.java)
+            startActivity(nextIntent)
+        }
     }
 
 }
