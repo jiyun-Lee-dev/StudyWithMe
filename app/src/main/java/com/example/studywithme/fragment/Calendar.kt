@@ -36,6 +36,7 @@ class Calendar : Fragment() {
     // test용 사용자 아이디는 0으로 임시 설정했음
     val userID = "1"
     val done = 1 //일단 1으로 설정
+    var Goal_id = 0
 
 
 
@@ -62,6 +63,18 @@ class Calendar : Fragment() {
             Log.d("get", goal_day)
             Goal_day?.setText("D-" + goal_day)
             Log.d("Goal_day", Goal_day?.text.toString())
+        }
+        //골아이디 받아오기
+        //val Goal_id = view?.findViewById<TextView>(R.id.Goal_name)
+        val args2 = getArguments()
+        if (args2 != null) {
+            //val mArgs = arguments
+            var goal_id = args2?.getString("goal_id")
+            Log.d("get", goal_id)
+            Goal_id = goal_id.toInt()
+            Log.d("Goal_id", Goal_id.toString())
+//            getTodoList_from_DB("search_todo")
+//            todo_list_recyclerview.adapter?.notifyDataSetChanged()
         }
 
     }
@@ -236,8 +249,10 @@ class Calendar : Fragment() {
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
             .add("user_id", userID) // user_id 일단 임의로 1 저장
+            .add("goal_id",Goal_id.toString())
             .build()
         // okhttp request를 만든다.
+        Log.d("Changed_Goal_id", Goal_id.toString())
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
