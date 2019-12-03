@@ -41,7 +41,12 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
+    // http 통신
     implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+    // 웹 크롤링
+    implementation 'org.jsoup:jsoup:1.11.2'
 
     /*RxBinding을 사용하기 위한 추가 지원 라이브러리*/
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'

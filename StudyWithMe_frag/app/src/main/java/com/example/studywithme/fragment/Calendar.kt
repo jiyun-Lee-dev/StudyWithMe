@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.studywithme.R
 import com.example.studywithme.scheduling.AddGoalDialog
 import com.example.studywithme.scheduling.View_Todo_Acheivement
@@ -31,6 +32,10 @@ class Calendar :DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
+
+        // 상단바 이름 바꾸기
+        var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = "캘린더"
 
         val url = "http://10.0.2.2:8080/getjson.php"
         val client = OkHttpClient()
