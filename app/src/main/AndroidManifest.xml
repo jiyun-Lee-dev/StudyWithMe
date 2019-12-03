@@ -23,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Board.Write_Board"></activity>
         <activity android:name=".signup.SignUpActivity"></activity>
@@ -31,7 +30,6 @@
         <activity android:name=".scheduling.View_Todo_Acheivement"></activity>
         <activity
             android:name=".bookmark.BookmarkActivity_main"
-            android:parentActivityName=".SecondActivity">
         </activity>
 
     </application>
