@@ -1,29 +1,19 @@
-package com.example.studywithme
+package com.example.studywithme.bookmark
 
 import android.app.AlertDialog
-import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.*
 import android.widget.*
+import com.example.studywithme.R
 import com.example.studywithme.R.id.*
 import kotlinx.android.synthetic.main.bookmark_main.*
-import java.net.URL
 import okhttp3.*
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONObject.NULL
 import java.io.IOException
-import java.lang.Exception
-import java.text.Normalizer
 
 class BookmarkActivity_main: AppCompatActivity() {
     /* 북마크 리스트. 일단은 예시로 하드코딩.
@@ -31,7 +21,8 @@ class BookmarkActivity_main: AppCompatActivity() {
     var categoryList = arrayListOf<BookmarkActivity_category>()
     var itemcnt = 0
     // RecyclerView 사용할 것. 어댑터를 생성
-    val categoryListAdapter = BookmarkActivity_category_list_Adapter(this, categoryList)
+    val categoryListAdapter =
+        BookmarkActivity_category_list_Adapter(this, categoryList)
     // test용 사용자 아이디는 0으로 임시 설정했음
     private val userID = "0"
 
@@ -66,7 +57,11 @@ class BookmarkActivity_main: AppCompatActivity() {
                     /* db에 데이터 추가 */
                     add_categoryData_to_DB(userID, dialog_categoryName_string, dialog_detailedWork_string)
                     /* 카테고리 리스트에 아이템 추가 */
-                    var newCategoryItem = BookmarkActivity_category(dialog_categoryName_string, dialog_detailedWork_string)
+                    var newCategoryItem =
+                        BookmarkActivity_category(
+                            dialog_categoryName_string,
+                            dialog_detailedWork_string
+                        )
                     categoryList.add(newCategoryItem)
                     // 어댑터에 데이터변경사항 알리기
                     bookmark_category_list.adapter?.notifyDataSetChanged()
@@ -209,7 +204,7 @@ class BookmarkActivity_main: AppCompatActivity() {
             }
             override fun onResponse(call: Call, response: Response) {
                 var data = response?.body?.string().toString()
-                var result_array = JSONArray(data)
+                var result_array: JSONArray = JSONArray(data)
                 var jsonobjCnt = result_array.length() - 1
                 for (i in 0..jsonobjCnt){
                     // 카테고리 이름
@@ -220,7 +215,11 @@ class BookmarkActivity_main: AppCompatActivity() {
                         detailedWork = "연결된 세부 목표 없음"
                     }
                     /* 카테고리 리스트에 아이템 추가 */
-                    var newCategoryItem = BookmarkActivity_category(categoryName, detailedWork)
+                    var newCategoryItem =
+                        BookmarkActivity_category(
+                            categoryName,
+                            detailedWork
+                        )
                     categoryList.add(newCategoryItem)
                 }
                 // 백그라운드에서 돌기 때문에 메인쓰레드로 ui에 접근할 수 있도록 해줘야 한다.

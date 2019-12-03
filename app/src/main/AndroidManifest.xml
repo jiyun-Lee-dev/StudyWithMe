@@ -12,27 +12,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".data.App" >
 
         <activity
             android:name=".ui.login.LoginActivity">
-        </activity>
-
-        <activity android:name=".SecondActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".SecondActivity"></activity>
         <activity android:name=".MainActivity"></activity>
-
+        <activity android:name=".Board.Write_Board"></activity>
+        <activity android:name=".signup.SignUpActivity"></activity>
+        <activity android:name=".scheduling.View_Today_Acheivement"></activity>
+        <activity android:name=".scheduling.View_Todo_Acheivement"></activity>
         <activity
-            android:name=".BookmarkActivity_main"
+            android:name=".bookmark.BookmarkActivity_main"
             android:parentActivityName=".SecondActivity">
         </activity>
 
     </application>
 
 </manifest>
+

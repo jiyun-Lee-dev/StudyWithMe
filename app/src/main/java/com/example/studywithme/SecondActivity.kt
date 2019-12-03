@@ -3,6 +3,7 @@ package com.example.studywithme
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.studywithme.bookmark.BookmarkActivity_main
 import kotlinx.android.synthetic.main.activity_second.*
 
 class SecondActivity: AppCompatActivity() {

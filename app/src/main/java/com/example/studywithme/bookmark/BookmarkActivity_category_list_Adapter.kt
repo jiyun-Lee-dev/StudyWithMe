@@ -1,4 +1,4 @@
-package com.example.studywithme
+package com.example.studywithme.bookmark
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.studywithme.R
 
 /* 어느 요소를 어느 View에 넣을 것인지 연결해주는 것이 Adapter의 역할이다.
 recyclerview의 어댑터는 RecyclerView.Adapter를 extend해야 함.
