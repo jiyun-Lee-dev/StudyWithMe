@@ -18,7 +18,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-
+        //아래거 차트이용
+        maven { url 'https://jitpack.io' }
     }
 }
 

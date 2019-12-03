@@ -61,4 +61,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     annotationProcessor 'com.android.databinding:compiler:3.1.3'
+    //차트그리기위한거 아래
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
 }

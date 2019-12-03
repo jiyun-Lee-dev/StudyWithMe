@@ -58,7 +58,7 @@
                 android:id="@+id/Goal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="알고리즘"
+                android:text="목표이름"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
@@ -78,10 +78,10 @@
                 android:id="@+id/Goal_day"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="D-21"
+                android:text="디데이"
                 android:textSize="30sp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="160dp"
+                android:layout_marginLeft="130dp"
                 android:layout_marginRight = "10dp" />
 
 
@@ -131,7 +131,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"/>
+                />
         </LinearLayout>
 
         //horizontal로 해보자
@@ -376,7 +376,7 @@
                 android:background="#FFFFFF"
                 android:text="할일별"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="43dp" />
+                android:layout_marginLeft="20dp" />
 
             <Button
                 android:id="@+id/button_view_today_acheivement"
