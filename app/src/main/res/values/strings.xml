@@ -11,7 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="description_imageView">Study With Me Logo</string>
     <string name="menuName_bookmark">북마크</string>
-
+    <string name="menuName_home">스터디위드미</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -30,10 +30,10 @@ class InfoAdapter(val context: Context, val items: MutableList<InfoRecommend>): 
 
         holder?.itemView?.setOnClickListener {
             val intent = Intent(ACTION_VIEW, Uri.parse(items[position].url))
+
             context.startActivity(intent)
             //Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
         }
-
     }
 
     inner class InfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(

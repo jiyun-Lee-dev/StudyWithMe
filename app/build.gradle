@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 
@@ -55,6 +53,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.1.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-design-kotlin:2.1.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.1.0'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0' // CircleImageView
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'

@@ -27,7 +27,7 @@ class LoginDataSource {
 
             override fun doInBackground(vararg params: Void?): String {
                 // url 만들기
-                val url="http://10.0.2.2/loginAuthenticate.php"
+                val url="http://203.245.10.33:8888/loginAuthenticate.php"
                 try {
                     // 데이터를 담아 보낼 바디 만들기
                     val requestBody : RequestBody = FormBody.Builder()
