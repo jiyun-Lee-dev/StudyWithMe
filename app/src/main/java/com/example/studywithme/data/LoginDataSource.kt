@@ -12,6 +12,7 @@ import java.lang.Exception
  */
 
 class LoginDataSource {
+
     var dataFrom_name : String = ""
     var dataFrom_id : String = ""
 
@@ -74,6 +75,7 @@ class LoginDataSource {
         } else {
             // 인증 실패
             Result.Error("Error logging")
+
         }
     }
 

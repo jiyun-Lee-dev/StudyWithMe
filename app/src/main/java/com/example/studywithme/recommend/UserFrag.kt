@@ -39,7 +39,7 @@ class UserFrag : Fragment(){
         goalList.add("전체 보기")
 
         fun getUserList() {
-            //userList.clear()
+            userList.clear()
 
             if (chosenGoal == "전체 보기") chosenGoal = "%"
 
@@ -65,8 +65,10 @@ class UserFrag : Fragment(){
                     var result_array: JSONArray = JSONArray(response.body!!.string())
                     var size = result_array.length() - 1
 
+                    /*
                     if(userList.size >= 0)
                        userList.removeAll(userList)
+                    */
 
                     for (i in 0..size) {
                         var UserId =

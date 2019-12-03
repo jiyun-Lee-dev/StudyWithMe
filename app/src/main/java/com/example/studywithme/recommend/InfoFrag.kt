@@ -1,10 +1,12 @@
 package com.example.studywithme.recommend
 
 import android.content.Context
+import android.databinding.DataBindingUtil.setContentView
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,7 @@ class InfoFrag : Fragment() {
 
     var query = "텟슷흐중"
     var weburl = "https://www.google.com/search?q=" + query + "&num=30"
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_info, container, false)
@@ -135,9 +138,11 @@ class InfoFrag : Fragment() {
         override fun onPostExecute(result: String?) {
             //progressBar.visibility = View.GONE
 
+
+
             val activity = activity as Context
             var adapter = InfoAdapter(activity, infoList)
-            rv_info_list.adapter = adapter
+            rv_info_list.setAdapter(adapter)
             rv_info_list.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
 
         }

@@ -45,10 +45,12 @@
             android:layout_marginRight="16dp"
             android:ems="10"
             android:hint="텍스트를 입력해주세요."
-            android:inputType="textPersonName" />
+            android:inputType="textNoSuggestions"
+            android:privateImeOptions="defaultInputmode=korean"
+            />
 
         <TextView
-            android:id="@+id/ddayofgoal"
+            android:id="@+id/goal_dayofgoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="D-DAY"
@@ -62,14 +64,16 @@
 
 
         <EditText
-            android:id="@+id/write_dday_goal"
+            android:id="@+id/write_goal_day_goal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:hint="텍스트를 입력해주세요."
-            android:inputType="textPersonName" />
+            android:hint="날짜를 입력해주세요 ex) 2019-10-11"
+            android:inputType="textNoSuggestions"
+            android:privateImeOptions="defaultInputmode=korean"
+            />
 
     </LinearLayout>
 

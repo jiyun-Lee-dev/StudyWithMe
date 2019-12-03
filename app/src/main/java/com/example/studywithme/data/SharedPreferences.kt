@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 1. SharedPreferences Class 생성
 2. App Class 생성해서 SharedPreferences 를 가장 먼저 쓸 수 있도록 설정
 3. manifest에 App Class 이름 등록
+
 !주의!
 이 SharedPreferences 클래스는 앱에 있는 다른 액티비티보다 먼저 생성되어야 다른 곳에 데이터를 넘겨줄 수 있다.
 이 설정을 해주기 위해서는 App에 해당되는 Class 파일 또한 생성해주어야 함.
@@ -20,6 +21,7 @@ class SharedPreferences(context: Context) {
     val PREF_KEY_MY_USERNAME = "myUserNameData"
     val PREF_KEY_MY_PASSWORD = "myPasswordData"
     val PREF_KEY_MY_USERID = "myUserIdData"
+
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
 
     /* get/set 함수 임의 설정. get 실행 시 저장된 값을 반환하며 default 값은 ""
