@@ -13,28 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:name=".data.App" >
+        android:name=".data.App">
 
         <activity
             android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- 다른 앱(안드로이드의 다른 웹 브라우저)에서 공유 기능을 사용했을 때 내 앱이 검색되도록 하기 위한 부분 -->
         </activity>
         <activity android:name=".SecondActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".Board.Write_Board"></activity>
         <activity android:name=".signup.SignUpActivity"></activity>
         <activity android:name=".scheduling.View_Today_Acheivement"></activity>
         <activity android:name=".scheduling.View_Todo_Acheivement"></activity>
-        <activity
-            android:name=".bookmark.BookmarkActivity_main"
-            android:parentActivityName=".SecondActivity">
-        </activity>
 
     </application>
 
 </manifest>
-

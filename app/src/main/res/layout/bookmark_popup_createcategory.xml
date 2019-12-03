@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_centerInParent="true"
-    android:layout_margin="40dp"
     android:background="#ffffff"
-    android:elevation="25dp"
     android:gravity="center">
 
     <TextView
@@ -42,4 +40,30 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:entries="@array/detailedWork" />
+
+    <LinearLayout
+        android:id="@+id/category_dialog_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/category_dialog_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_weight="3.5"
+            android:text="확인" />
+
+        <Button
+            android:id="@+id/category_dialog_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:text="취소" />
+    </LinearLayout>
 </LinearLayout>

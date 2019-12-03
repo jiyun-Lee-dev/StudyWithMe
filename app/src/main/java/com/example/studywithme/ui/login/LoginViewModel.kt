@@ -9,14 +9,18 @@ import com.example.studywithme.data.Result
 
 import com.example.studywithme.R
 
+
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
+    // 로그인 입력 폼에 대한 LiveData 객체 생성
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
+    // 로그인 결과에 대한 LiveData 객체 생성
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    // 로그인
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
         val result = loginRepository.login(username, password)

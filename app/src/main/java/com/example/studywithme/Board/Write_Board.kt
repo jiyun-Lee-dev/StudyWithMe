@@ -1,13 +1,10 @@
 package com.example.studywithme.Board
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Button
 import android.widget.TextView
-import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 
 
@@ -18,6 +15,8 @@ class Write_Board : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.write_board)
+
+
 
     }
 }

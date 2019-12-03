@@ -40,6 +40,7 @@ import java.util.regex.Pattern
 
 class SignUpActivity: AppCompatActivity() {
 
+    private var RegisterURL="http://10.0.2.2/register.php"
     var id_sign_string: String = ""
     var password_sign_string: String = ""
     var name_sign_string: String = ""
@@ -99,11 +100,11 @@ class SignUpActivity: AppCompatActivity() {
                 }
             }
 
-        // 회원 가입 버튼 클릭 이벤트
-        btn_signup.setOnClickListener{
-            // id나 user가 중복되지 않는지 체크
-            checkDuplicateUser_and_showResult()
-        }
+         // 회원 가입 버튼 클릭 이벤트
+         btn_signup.setOnClickListener{
+             // id나 user가 중복되지 않는지 체크
+             checkDuplicateUser_and_showResult()
+         }
 
     }
 
@@ -128,7 +129,7 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun checkDuplicateUser_and_showResult() {
         // url 만들기
-        val url="http://203.245.10.33:8888/signup/checkDuplicateUser.php"
+        val url="http://10.0.2.2/checkDuplicateUser.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody : RequestBody = FormBody.Builder()
             .add("user_id", id_sign_string)
@@ -160,7 +161,7 @@ class SignUpActivity: AppCompatActivity() {
                     send_authenticateNum(id_sign_string, name_sign_string)
                 }
             }
-            override fun onFailure(call: Call, e: IOException) {
+             override fun onFailure(call: Call, e: IOException) {
                 Log.d("요청", "요청 실패")
             }
         })
@@ -168,7 +169,7 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun send_authenticateNum(user_emailAddress: String, user_name: String){
         // url 만들기
-        val url="http://203.245.10.33:8888/signup/sendAuthenticateString.php"
+        val url="http://10.0.2.2/sendAuthenticateString.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody : RequestBody = FormBody.Builder()
             .add("user_name", user_name)
@@ -215,7 +216,7 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun insertUserDataToDB(user_emailAddress: String, user_password: String, user_name: String){
         // url 만들기
-        val url="http://203.245.10.33:8888/signup/insert_userData.php"
+        val url="http://10.0.2.2/insert_userData.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody : RequestBody = FormBody.Builder()
             .add("user_password", user_password)
@@ -252,3 +253,4 @@ class SignUpActivity: AppCompatActivity() {
     }
 
 }
+
