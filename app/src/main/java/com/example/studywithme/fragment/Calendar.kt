@@ -39,8 +39,6 @@ class Calendar : Fragment() {
     var Goal_id = 0
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,7 +51,7 @@ class Calendar : Fragment() {
             Log.d("get", goal_name)
             Goal_name?.setText(goal_name)
             Log.d("Goal_name", Goal_name?.text.toString())
-           }
+        }
         // 홈에서 디데이 받아오기
         val Goal_day=view?.findViewById<TextView>(R.id.Goal_day)
         val args1=getArguments()
@@ -64,20 +62,12 @@ class Calendar : Fragment() {
             Goal_day?.setText("D-" + goal_day)
             Log.d("Goal_day", Goal_day?.text.toString())
         }
-        //골아이디 받아오기
-        //val Goal_id = view?.findViewById<TextView>(R.id.Goal_name)
-        val args2 = getArguments()
-        if (args2 != null) {
-            //val mArgs = arguments
-            var goal_id = args2?.getString("goal_id")
-            Log.d("get", goal_id)
-            Goal_id = goal_id.toInt()
-            Log.d("Goal_id", Goal_id.toString())
-//            getTodoList_from_DB("search_todo")
-//            todo_list_recyclerview.adapter?.notifyDataSetChanged()
-        }
+
 
     }
+
+
+
 
 
 
@@ -89,7 +79,20 @@ class Calendar : Fragment() {
     ): View? {
 
 
-        val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
+            //골아이디 받아오기
+            //val Goal_id = view?.findViewById<TextView>(R.id.Goal_name)
+            val args2 = getArguments()
+            if (args2 != null) {
+                //val mArgs = arguments
+                var goal_id = args2?.getString("goal_id")
+                Log.d("get", goal_id)
+                Goal_id = goal_id.toInt()
+                Log.d("Goal_id", Goal_id.toString())
+            }
+
+
+
+            val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
 
         // RecyclerView 사용할 것. 어댑터를 생성
         todoListAdapter = Todo_list_adapter(view.context, todoList)
@@ -209,16 +212,16 @@ class Calendar : Fragment() {
         return view
     }
 
+
     // 카테고리 데이터 db 추가
     //userID,dialog_todoName_string,dialog_dday_string,done
     fun add_todoData_to_DB(user_id: String, todo_name: String, dday: String, done : Int) {
         // url 만들기
         val url = "http://10.0.2.2/insert_todo.php"
-        val goal_id = 0 // 일단 0으로 설정
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
             .add("user_id",user_id) // user_id 일단 임의로 1으로 저장
-            .add("goal_id",goal_id.toString())
+            .add("goal_id",Goal_id.toString())
             .add("todo_content",todo_name)
             .add("dday",dday)
             .add("done",done.toString())
