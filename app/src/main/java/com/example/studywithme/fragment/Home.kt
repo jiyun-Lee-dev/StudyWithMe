@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
@@ -17,14 +14,16 @@ import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import android.text.TextUtils.replace
 import android.util.Log
-import android.widget.ImageButton
-import com.example.studywithme.scheduling.AddGoalDialog
+import android.view.*
+import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_second.*
 
 
 class Home : Fragment() {
-
     var activity: MainActivity? = null
+    // 마지막으로 뒤로가기 버튼이 터치된 시간
+    private var lastTimeBackPressed:Long = 0L
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,26 +39,12 @@ class Home : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val toolbar_btn_profile= view.findViewById<ImageButton>(R.id.toolbar_btn_profile)
+        // 상단바 메뉴 쓰는 것으로 설정
+        setHasOptionsMenu(true)
 
-        toolbar_btn_profile.setOnClickListener{
-            val fragment = Profile() // Fragment 생성
-            val fm = fragmentManager
-            val fmt = fm?.beginTransaction()
-            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-        }
-
-
-        val home_add_todo = view.findViewById<Button>(R.id.home_add_todo)
-        val home_add_goal = view.findViewById<Button>(R.id.home_add_goal)
-
-
-        home_add_goal.setOnClickListener {
-            val myDialogFragment = AddGoalDialog()
-            myDialogFragment.setTargetFragment(this, 0)
-            myDialogFragment.show(fragmentManager!!, "Search Filter")
-        }
-
+        // 상단바 이름 바꾸기
+        var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = "홈"
 
         return view
     }
@@ -68,4 +53,20 @@ class Home : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    // menu에 있는 메뉴 클릭 시 이벤트 처리
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            //뒤로가기 버튼 클릭 시
+            android.R.id.home -> {
+                activity!!.onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

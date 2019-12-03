@@ -26,25 +26,16 @@ import java.io.IOException
 
 class Calendar :DialogFragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val Goal_name=view?.findViewById<TextView>(R.id.Goal_name)
-        val args=getArguments()
-        if (args != null) {
-            //val mArgs = arguments
-            var goal_name= args?.getString("goal_name")
-            Log.d("get", goal_name)
-            Goal_name?.setText(goal_name)
-            Log.d("Goal_name", Goal_name?.text.toString())
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view= inflater.inflate(R.layout.fragment_calendar, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_calendar, container, false)
+
+        // 상단바 이름 바꾸기
+        var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = "캘린더"
 
         val url = "http://10.0.2.2:8080/getjson.php"
         val client = OkHttpClient()
