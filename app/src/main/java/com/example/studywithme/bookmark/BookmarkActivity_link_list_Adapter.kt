@@ -15,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.data.category
 import org.w3c.dom.Text
 import java.io.IOException
 import java.net.HttpURLConnection
