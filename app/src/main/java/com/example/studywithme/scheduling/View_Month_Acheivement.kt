@@ -3,19 +3,18 @@ package com.example.studywithme.scheduling
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import com.example.studywithme.R
-import android.support.v7.app.AppCompatActivity
-import android.widget.Button
+import android.view.LayoutInflater
 import android.view.View
-import kotlinx.android.synthetic.main.activity_view_month_acheivement.*
-import kotlinx.android.synthetic.main.activity_view_today_acheivement.*
-import kotlinx.android.synthetic.main.activity_view_todo_acheivement.*
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_calendar_view_month_acheivement.*
 import java.time.LocalDate
-import java.time.Period
 import java.time.format.DateTimeFormatter
 
-
-class View_Month_Acheivement : AppCompatActivity()  {
+class View_Month_Acheivement : Fragment() {
 
 
     //년도 계산 함수
@@ -59,36 +58,47 @@ class View_Month_Acheivement : AppCompatActivity()  {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view: View = inflater.inflate(R.layout.fragment_calendar_view_month_acheivement, container, false)
 
-        setContentView(R.layout.activity_view_month_acheivement)
 
+        val monthandyear_view_now = view.findViewById<TextView>(R.id.monthandyear_view_now)
+        val month_view_last = view.findViewById<TextView>(R.id. month_view_last)
+        val month_view_next = view.findViewById<TextView>(R.id.month_view_next)
+        val no_meaning = view.findViewById<TextView>(R.id.no_meaning)
 
         monthandyear_view_now.setText(today_year+"년 "+today_month+"월")
         month_view_last.setText("◀◀"+last_month+"월")
         month_view_next.setText(next_month+"월"+"▶▶")
         no_meaning.setText(period.toString())
 
-
-        //할일 달성률 보여주기 엑티비티로 이동
-        button_view_todo_acheivement3.setOnClickListener {
-            val intent = Intent(this, View_Todo_Acheivement::class.java)
-            startActivity(intent)
+        // 프래그먼트 버튼에서 할일별 달성률 프래그먼트로 연결하는 코드
+        val view_todo = view.findViewById<Button>(R.id.button_view_todo_acheivement3)
+        view_todo.setOnClickListener {
+            val fragment = View_Todo_Acheivement() // Fragment 생성
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
         }
 
-        //오늘 달성률 보여주기 액티비티로 이동
-        button_view_today_acheivement3.setOnClickListener {
-            val intent1 = Intent(this, View_Today_Acheivement::class.java)
-            startActivity(intent1)
+        // 프래그먼트 버튼에서 오늘 달성률 프래그먼트로 연결하는 코드
+        val view_today = view.findViewById<Button>(R.id.button_view_today_acheivement3)
+        view_today.setOnClickListener {
+            val fragment = View_Today_Acheivement() // Fragment 생성
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
         }
 
+
+
+        return view
 
 
     }
-
-
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 
 
 }

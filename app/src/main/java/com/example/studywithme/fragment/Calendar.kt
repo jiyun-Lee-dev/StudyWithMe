@@ -164,29 +164,36 @@ class Calendar : Fragment() {
         // db에서 카테고리 데이터 가져오기
         getTodoList_from_DB("search_todo")
 
-        //할일별 달성률 보여주기 액티비티로 이동
-        val button_view_todo_acheivement =
-            view.findViewById<Button>(R.id.button_view_todo_acheivement)
-        button_view_todo_acheivement.setOnClickListener {
-            val intent = Intent(activity, View_Todo_Acheivement::class.java)
-            startActivity(intent)
-        }
 
-        //오늘 달성률 보여주기 액티비티로 이동
-        val button_view_today_acheivement =
-            view.findViewById<Button>(R.id.button_view_today_acheivement)
-        button_view_today_acheivement.setOnClickListener {
-            val intent = Intent(activity, View_Today_Acheivement::class.java)
-            startActivity(intent)
-        }
+            // 프래그먼트 버튼에서 할일별 달성률 프래그먼트로 연결하는 코드
+            val view_todo = view.findViewById<Button>(R.id.button_view_todo_acheivement)
+            view_todo.setOnClickListener {
+                val fragment = View_Todo_Acheivement() // Fragment 생성
+                val fm = fragmentManager
+                val fmt = fm?.beginTransaction()
+                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+            }
 
-        //이번달_달성률 보여주기 액티비티로 이동
-        val button_view_month_acheivement =
-            view.findViewById<Button>(R.id.button_view_month_acheivement)
-        button_view_month_acheivement.setOnClickListener {
-            val intent = Intent(activity, View_Month_Acheivement::class.java)
-            startActivity(intent)
-        }
+            // 프래그먼트 버튼에서 오늘 달성률 프래그먼트로 연결하는 코드
+            val view_today = view.findViewById<Button>(R.id.button_view_today_acheivement)
+            view_today.setOnClickListener {
+                val fragment = View_Today_Acheivement() // Fragment 생성
+                val fm = fragmentManager
+                val fmt = fm?.beginTransaction()
+                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+            }
+
+            // 프래그먼트 버튼에서 월별별 달성률 프래그먼트로 연결하는 코드
+            val view_month = view.findViewById<Button>(R.id. button_view_month_acheivement)
+            view_month.setOnClickListener {
+                val fragment = View_Month_Acheivement() // Fragment 생성
+                val fm = fragmentManager
+                val fmt = fm?.beginTransaction()
+                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+            }
+
+
+
 
 
 //        //목표 추가
