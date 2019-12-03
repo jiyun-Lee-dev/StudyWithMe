@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.studywithme.Board.BoardAdapter
 import com.example.studywithme.R
 
@@ -16,6 +17,10 @@ class Board : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_board, container, false)
+
+        // 상단바 이름 바꾸기
+        var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = "게시판"
 
         tabLayout = view.findViewById(R.id.board_tabs)
         viewPager = view.findViewById(R.id.board_viewpager)

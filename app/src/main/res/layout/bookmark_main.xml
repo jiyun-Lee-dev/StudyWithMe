@@ -6,27 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:ignore="MissingConstraints"
-    tools:context=".bookmark.BookmarkActivity_main">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_bookmark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/bookmark_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:longClickable="false"
-            android:text="@string/menuName_bookmark"
-            android:textSize="25dp"
-            android:textColor="#ffffff"
-            android:visibility="visible"/>
-    </android.support.v7.widget.Toolbar>
+    tools:ignore="MissingConstraints">
 
     <LinearLayout
         android:id="@+id/bookmark_category_createBtn_layout"
@@ -62,6 +42,7 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:text="아직 생성된 카테고리가 없습니다. 카테고리를 추가해 링크들을 편하게 관리해보세요!"
             android:padding="20dp"
             android:visibility="gone"
             android:textColor="#000000">

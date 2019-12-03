@@ -2,29 +2,19 @@ package com.example.studywithme.recommend
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.ImageView
-import android.widget.TextView
-import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.data.App
 import com.example.studywithme.data.UserRecommend
-import com.example.studywithme.fragment.Recommend
 import kotlinx.android.synthetic.main.recommend_user_item.view.*
 import okhttp3.*
 import java.io.IOException
-import java.security.AccessController.getContext
-
 
 class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
 

@@ -1,33 +1,20 @@
 package com.example.studywithme.recommend
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.example.studywithme.R
 import com.example.studywithme.data.UserRecommend
-import com.example.studywithme.scheduling.View_Todo_Acheivement
-import kotlinx.android.synthetic.main.fragment_user.*
-import android.content.DialogInterface
-import android.app.AlertDialog
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import com.example.studywithme.bookmark.BookmarkActivity_category
 import com.example.studywithme.data.App
-import kotlinx.android.synthetic.main.bookmark_main.*
-import kotlinx.android.synthetic.main.recommend_user_item.*
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
@@ -37,7 +24,9 @@ class UserFrag : Fragment(){
     val goalList = ArrayList<String>()
     val userList = mutableListOf<UserRecommend>()
     //val userid:String = App.prefs.myUserIdData
-    var chosenGoal:String = "%"
+    val user:String = App.prefs.myUserIdData
+
+    var chosenGoal:String = ""
     var userid = "test"
 
 
@@ -46,6 +35,7 @@ class UserFrag : Fragment(){
         val view: View = inflater.inflate(R.layout.fragment_user, container, false)
         val recyclerview = view.findViewById(R.id.rv_user_list) as RecyclerView
 
+        Log.d("prefs", user)
         goalList.add("전체 보기")
 
         fun getUserList() {
@@ -74,11 +64,11 @@ class UserFrag : Fragment(){
                 override fun onResponse(call: Call, response: Response) {
                     var result_array: JSONArray = JSONArray(response.body!!.string())
                     var size = result_array.length() - 1
-                    Log.d("size",size.toString())
-                    Log.d("length",result_array.length().toString())
 
-                    //if(userList.size!=0)
-                    //   userList.removeAll(userList)
+                    /*
+                    if(userList.size >= 0)
+                       userList.removeAll(userList)
+                    */
 
                     for (i in 0..size) {
                         var UserId =
@@ -148,7 +138,8 @@ class UserFrag : Fragment(){
             }
         })
 
-        val spinner = view.findViewById<Spinner>(R.id.goal_spinner)
+        //val spinner = view.findViewById(R.id.goal_spinner)
+        val spinner:Spinner=view.findViewById(R.id.user_goal_spinner)
         val items = ArrayAdapter(activity, android.R.layout.simple_spinner_item, goalList)
         items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner?.adapter = items

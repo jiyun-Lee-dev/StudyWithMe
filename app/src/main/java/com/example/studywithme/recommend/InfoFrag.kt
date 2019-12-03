@@ -1,35 +1,24 @@
 package com.example.studywithme.recommend
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
+import android.databinding.DataBindingUtil.setContentView
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
-import com.example.studywithme.MainActivity
+import android.widget.*
 import com.example.studywithme.R
 import com.example.studywithme.data.InfoRecommend
-import com.example.studywithme.data.UserRecommend
 import kotlinx.android.synthetic.main.fragment_info.*
-import kotlinx.android.synthetic.main.fragment_info.view.*
 import okhttp3.*
 import org.json.JSONArray
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.io.IOException
 
@@ -44,9 +33,9 @@ class InfoFrag : Fragment() {
     var query = "텟슷흐중"
     var weburl = "https://www.google.com/search?q=" + query + "&num=30"
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_info, container, false)
-
 
         MyAsyncTask().execute(weburl)
 
@@ -84,7 +73,7 @@ class InfoFrag : Fragment() {
             }
         })
 
-        val spinner = view.findViewById<Spinner>(R.id.goal_spinner)
+        val spinner = view.findViewById<Spinner>(R.id.info_goal_spinner)
         val items = ArrayAdapter(activity, android.R.layout.simple_spinner_item, goalList)
         items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner?.adapter = items
@@ -127,7 +116,7 @@ class InfoFrag : Fragment() {
                 val header: String = elem.select("span.S3Uucc").text()
                 val content: String = elem.select("span.st").text()
                 val url: String = elem.select("a").attr("href")
-                Log.d(TAG, "$index: $header / $content / $url")
+                //Log.d(TAG, "$index: $header / $content / $url")
 
                 var newInfoItem =
                     InfoRecommend(
@@ -149,9 +138,11 @@ class InfoFrag : Fragment() {
         override fun onPostExecute(result: String?) {
             //progressBar.visibility = View.GONE
 
+
+
             val activity = activity as Context
             var adapter = InfoAdapter(activity, infoList)
-            rv_info_list.adapter = adapter
+            rv_info_list.setAdapter(adapter)
             rv_info_list.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
 
         }

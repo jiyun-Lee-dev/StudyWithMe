@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import kotlinx.android.synthetic.main.fragment_myboard.*
 import okhttp3.*
@@ -27,19 +26,6 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
-
-    var activity: MainActivity? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = getActivity() as MainActivity
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-
-        activity = null
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -79,21 +65,12 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener {
         spinner?.adapter = items
 
 
-/*
+
         val write_button = view.findViewById<Button>(R.id.write_button)
         write_button.setOnClickListener{
             val intent= Intent(activity, Write_Board::class.java)
             startActivity(intent)
         }
-*/
-
-    val write_button = view.findViewById<Button>(R.id.write_button)
-
-        write_button.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(v: View?) {
-                activity?.onFragmentChange(3)
-            }
-        })
 
         return view
     }
