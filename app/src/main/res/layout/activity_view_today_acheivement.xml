@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".scheduling.View_Todo_Acheivement">
+    tools:context=".scheduling.View_Today_Acheivement">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:layout_gravity="bottom"
             android:layout_marginRight="70dp"
             android:text="D-44"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
         />
         <!--       //첫줄 TEXT들 끝-->
@@ -62,12 +62,12 @@
 
         <!--    벌써 이만큼 달성했어요!-->
         <TextView
-            android:id="@+id/what_a_achieve"
+            android:id="@+id/fighting_today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="50dp"
-            android:text="벌써 이만큼 달성했어요!"
+            android:text="오늘도 화이팅!"
             android:textColor="#83CAC8"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -84,7 +84,7 @@
         android:paddingTop="30dp">
 
     <Button
-        android:id="@+id/button_view_todo_acheivement"
+        android:id="@+id/button_view_todo_acheivement2"
         android:layout_width="125dp"
         android:layout_height="61dp"
         android:layout_gravity="bottom"
@@ -92,31 +92,68 @@
         android:background="#00ff0000"
         android:text="할일별"
         android:textSize="20sp"
-        android:textStyle="bold"
          />
 
-    <Button
-        android:id="@+id/button_view_today_acheivement1"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#00ff0000"
-        android:text="오늘"
-        android:textSize="20sp"
-        />
+        <Button
+            android:id="@+id/button_view_today_acheivement"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="#00ff0000"
+            android:text="오늘"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button_view_month_acheivement1"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:layout_marginEnd="0dp"
-        android:background="#00ff0000"
-        android:text="이번달"
-        android:textSize="20sp"
-         />
+        <Button
+            android:id="@+id/button_view_month_acheivement2"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="0dp"
+            android:background="#00ff0000"
+            android:text="이번달"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp">
+
+        <TextView
+            android:id="@+id/date_view1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="55dp"
+            android:text="08"
+            android:textSize="30sp"
+             />
+        <TextView
+            android:id="@+id/date_view2"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="   09   "
+            android:textSize="30sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/date_view3"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
@@ -124,7 +161,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="#83cac5"
             android:orientation="vertical">
 
@@ -166,8 +203,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8">
-
-
             </LinearLayout>
 
 

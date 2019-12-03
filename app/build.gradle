@@ -43,6 +43,15 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.0.1'
 
+    /*RxBinding을 사용하기 위한 추가 지원 라이브러리*/
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.1.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.1.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-design-kotlin:2.1.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.1.0'
+
+
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'

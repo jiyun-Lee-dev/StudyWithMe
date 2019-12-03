@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/bookmark_category_list_item_border">
+
+    <Button
+        android:id="@+id/goal_list_goalName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/round_square_darkgray"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="goalName"
+        android:textColor="#FFFFFF"
+        />
+
+    <TextView
+        android:id="@+id/goal_list_dDay_message"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="22sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/goal_list_goalName"
+        tools:text="하잇"/>
+
+    <TextView
+        android:id="@+id/goal_list_dDay"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:textSize="22sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/goal_list_dDay_message"
+        tools:text="dDay"/>
+
+    <TextView
+        android:id="@+id/goal_list_id"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:textSize="22sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/goal_list_dDay"
+        tools:text="goal"/>
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

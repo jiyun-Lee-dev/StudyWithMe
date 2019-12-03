@@ -10,9 +10,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
+<!--        <LinearLayout-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:layout_weight="0.3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="목표 선택 ▶▶▶"-->
+<!--                android:textSize="20dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                />-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                />-->
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner_calendar_goal"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:spinnerMode="dialog"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:textColor = "#000000"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+
+
+
+
+
+
+
         <LinearLayout
             android:paddingTop="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -21,20 +58,30 @@
                 android:id="@+id/Goal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="목표이름"
-                android:textSize="35sp"
+                android:text="알고리즘"
+                android:textSize="30dp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft = "30dp" />
 
             <TextView
-                android:id="@+id/D_day"
-                android:layout_width="wrap_content"
+                android:id="@+id/Goal_id"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="D-DAY"
-                android:textSize="35sp"
+                android:text="goal_id"
+                android:textSize="30sp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="125dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight = "10dp" />
+
+            <TextView
+                android:id="@+id/Goal_day"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="D-21"
+                android:textSize="30sp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight = "10dp" />
 
 
@@ -50,7 +97,7 @@
 
         <LinearLayout
             android:paddingTop="5dp"
-            android:layout_weight="2"
+            android:layout_weight="0.7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -59,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="해내야만 하는 일들"
-                android:textSize="22sp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="25dp"
@@ -70,171 +117,213 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="남은 기간"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="40dp" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="완료"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"/>
+        </LinearLayout>
+
+        //horizontal로 해보자
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/scheduling_todo_list_has_no_item_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/todo_list_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:requiresFadingEdge="horizontal|vertical"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fillViewport="true">
-
-            <GridLayout
-                android:paddingTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="3"
-                android:rowCount="5"
-                >
-                <TextView
-                    android:id="@+id/to_do1"
-                    android:layout_width="180dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/round_square_darkgray"
-                    android:gravity="center_horizontal"
-                    android:text="할일 1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:layout_marginLeft="20dp" />
 
 
-                <TextView
-                    android:id="@+id/to_do_dday1"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/round_square_light_gray"
-                    android:gravity="center_horizontal"
-                    android:text="D_day1"
-                    android:textSize="22sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox_goal1"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5" />
-
-                <TextView
-                    android:id="@+id/To_do2"
-                    android:layout_width="180dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/round_square_darkgray"
-                    android:gravity="center_horizontal"
-                    android:text="할일 2"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"/>
 
 
-                <TextView
-                    android:id="@+id/to_do_dday2"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:gravity="center_horizontal"
-                    android:text="D_day2"
-                    android:textSize="22sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_square_light_gray"/>
+
+<!--         <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="2"-->
+<!--            android:fillViewport="true">-->
+
+<!--            <GridLayout-->
+<!--                android:paddingTop="20dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:columnCount="3"-->
+<!--                android:rowCount="5"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/to_do1"-->
+<!--                    android:layout_width="160dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:background="@drawable/round_square_darkgray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="인강 복습"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="22sp" />-->
 
 
-                <CheckBox
-                    android:id="@+id/checkBox_goal2"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/to_do_dday1"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:background="@drawable/round_square_light_gray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="D-17"-->
+<!--                    android:textSize="22sp" />-->
 
-                <TextView
-                    android:id="@+id/To_do3"
-                    android:layout_width="180dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/round_square_darkgray"
-                    android:gravity="center_horizontal"
-                    android:text="할일 3"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp" />
+<!--                <CheckBox-->
+<!--                    android:id="@+id/checkBox_goal1"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:scaleX="1.5"-->
+<!--                    android:scaleY="1.5" />-->
 
-
-                <TextView
-                    android:id="@+id/to_do_dday3"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/round_square_light_gray"
-                    android:gravity="center_horizontal"
-                    android:text="D_day3"
-                    android:layout_marginTop="10dp"
-                    android:textSize="22sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/To_do2"-->
+<!--                    android:layout_width="160dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:background="@drawable/round_square_darkgray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="문제집 2단원까지"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"/>-->
 
 
-                <CheckBox
-                    android:id="@+id/checkBox_goal3"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp" />
-
-                <TextView
-                    android:id="@+id/To_do4"
-                    android:layout_width="180dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/round_square_darkgray"
-                    android:gravity="center_horizontal"
-                    android:text="할일 4"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/to_do_dday2"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="D-22"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/round_square_light_gray"/>-->
 
 
-                <TextView
-                    android:id="@+id/to_do_dday4"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/round_square_light_gray"
-                    android:gravity="center_horizontal"
-                    android:text="D_day4"
-                    android:layout_marginTop="10dp"
-                    android:textSize="22sp" />
+<!--                <CheckBox-->
+<!--                    android:id="@+id/checkBox_goal2"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleX="1.5"-->
+<!--                    android:scaleY="1.5"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/To_do3"-->
+<!--                    android:layout_width="160dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:background="@drawable/round_square_darkgray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="어법 필기정리"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp" />-->
 
 
-                <CheckBox
-                    android:id="@+id/checkBox_goal4"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/to_do_dday3"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:background="@drawable/round_square_light_gray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="D-5"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:textSize="22sp" />-->
 
-            </GridLayout>
-        </ScrollView>
+
+<!--                <CheckBox-->
+<!--                    android:id="@+id/checkBox_goal3"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleX="1.5"-->
+<!--                    android:scaleY="1.5"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/To_do4"-->
+<!--                    android:layout_width="160dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:background="@drawable/round_square_darkgray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="필기정리"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp" />-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/to_do_dday4"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:background="@drawable/round_square_light_gray"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="D-10"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:textSize="22sp" />-->
+
+
+<!--                <CheckBox-->
+<!--                    android:id="@+id/checkBox_goal4"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleX="1.5"-->
+<!--                    android:scaleY="1.5"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp" />-->
+
+<!--            </GridLayout>-->
+<!--        </ScrollView>-->
 
         <LinearLayout
             android:paddingTop="5dp"
@@ -243,7 +332,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button_add_goal"
+                android:id="@+id/button_calendar_add_todo"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_gravity="center_horizontal"
@@ -290,22 +379,23 @@
                 android:layout_marginLeft="43dp" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/button_view_today_acheivement"
                 android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="#FFFFFF"
-                android:text="오늘"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="43dp" />
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="43dp"
+                android:background="#FFFFFF"
+                android:text="오늘" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/button_view_month_acheivement"
                 android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="#FFFFFF"
-                android:text="이번달"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="43dp" />
+                android:layout_marginRight="43dp"
+                android:background="#FFFFFF"
+                android:text="이번달" />
 
         </LinearLayout>
 

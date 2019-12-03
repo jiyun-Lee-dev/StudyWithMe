@@ -20,6 +20,7 @@ class BookmarkActivity_main: AppCompatActivity() {
     추후에 사용자로부터 입력받아서 db 저장하고 db에서 가져오는 걸로 수정해야함*/
     var categoryList = arrayListOf<BookmarkActivity_category>()
     var itemcnt = 0
+
     // RecyclerView 사용할 것. 어댑터를 생성
     val categoryListAdapter =
         BookmarkActivity_category_list_Adapter(this, categoryList)
