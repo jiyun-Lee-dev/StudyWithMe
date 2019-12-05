@@ -38,7 +38,6 @@ class Calendar : Fragment() {
     val done = 1 //일단 1으로 설정
     var Goal_id = 0
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -156,32 +155,48 @@ class Calendar : Fragment() {
         getTodoList_from_DB("search_todo")
 
 
-            // 프래그먼트 버튼에서 할일별 달성률 프래그먼트로 연결하는 코드
-            val view_todo = view.findViewById<Button>(R.id.button_view_todo_acheivement)
-            view_todo.setOnClickListener {
-                val fragment = View_Todo_Acheivement() // Fragment 생성
-                val fm = fragmentManager
-                val fmt = fm?.beginTransaction()
-                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-            }
+        // 프래그먼트 버튼에서 할일별 달성률 프래그먼트로 연결하는 코드
+        val view_todo = view.findViewById<Button>(R.id.button_view_todo_acheivement)
+        val Goal_name = view?.findViewById<TextView>(R.id.Goal_name)
+        val Goal_day = view?.findViewById<TextView>(R.id.Goal_day)
+        view_todo.setOnClickListener {
+            val fragment1 = View_Todo_Acheivement() // Fragment 생성
+            var bundle1: Bundle = Bundle(1)
+            bundle1.putString("goal_name",Goal_name.text.toString())
+            bundle1.putString("d_day",Goal_day.text.toString())
+            Log.d("Goal_name_pass1", Goal_name.text.toString())
+            fragment1.arguments = bundle1
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment1)?.addToBackStack(null)?.commit()
+        }
 
-            // 프래그먼트 버튼에서 오늘 달성률 프래그먼트로 연결하는 코드
-            val view_today = view.findViewById<Button>(R.id.button_view_today_acheivement)
-            view_today.setOnClickListener {
-                val fragment = View_Today_Acheivement() // Fragment 생성
-                val fm = fragmentManager
-                val fmt = fm?.beginTransaction()
-                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-            }
+        // 프래그먼트 버튼에서 오늘 달성률 프래그먼트로 연결하는 코드
+        val view_today = view.findViewById<Button>(R.id.button_view_today_acheivement)
+        view_today.setOnClickListener {
+            val fragment = View_Today_Acheivement() // Fragment 생성
+            var bundle1: Bundle = Bundle(1)
+            bundle1.putString("goal_name",Goal_name.text.toString())
+            bundle1.putString("d_day",Goal_day.text.toString())
+            fragment.arguments = bundle1
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+        }
 
-            // 프래그먼트 버튼에서 월별별 달성률 프래그먼트로 연결하는 코드
-            val view_month = view.findViewById<Button>(R.id. button_view_month_acheivement)
-            view_month.setOnClickListener {
-                val fragment = View_Month_Acheivement() // Fragment 생성
-                val fm = fragmentManager
-                val fmt = fm?.beginTransaction()
-                fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-            }
+        // 프래그먼트 버튼에서 월별별 달성률 프래그먼트로 연결하는 코드
+        val view_month = view.findViewById<Button>(R.id. button_view_month_acheivement)
+        view_month.setOnClickListener {
+            val fragment = View_Month_Acheivement() // Fragment 생성
+            var bundle1: Bundle = Bundle(1)
+            bundle1.putString("goal_name",Goal_name.text.toString())
+            bundle1.putString("d_day",Goal_day.text.toString())
+            Log.d("Goal_name_pass2", Goal_name.text.toString())
+            fragment.arguments = bundle1
+            val fm = fragmentManager
+            val fmt = fm?.beginTransaction()
+            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+        }
 
 
 
@@ -215,7 +230,7 @@ class Calendar : Fragment() {
     //userID,dialog_todoName_string,dialog_dday_string,done
     fun add_todoData_to_DB(user_id: String, todo_name: String, dday: String, done : Int) {
         // url 만들기
-        val url = "http://10.0.2.2/insert_todo.php"
+        val url = "http://203.245.10.33:8888/scheduling/insert_todo.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
             .add("user_id",user_id) // user_id 일단 임의로 1으로 저장
@@ -245,7 +260,7 @@ class Calendar : Fragment() {
     // db에서 php로 데이터 가져오기 (+userID 체크 추가)
     fun getTodoList_from_DB(phpName: String) {
         // url 만들기
-        val url = "http://10.0.2.2/" + phpName + ".php"
+        val url = "http://203.245.10.33:8888/scheduling/" + phpName + ".php"
         // POST로 보낼 데이터 설정
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
