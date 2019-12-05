@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import com.example.studywithme.R
 
@@ -21,6 +22,7 @@ class Todo_list_adapter (val context: Context, val todoList: ArrayList<Todo_list
         val view = LayoutInflater.from(context).inflate(R.layout.todo_list_item, parent, false)
         return Holder(view)
     }
+
     /* onCreateViewHolder에서 만든 View와 실제 입력되는 각각의 데이터를 연결한다.*/
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder?.bind(todoList[position], context)
@@ -35,6 +37,16 @@ class Todo_list_adapter (val context: Context, val todoList: ArrayList<Todo_list
         id를 통해 layout과 연결된다.*/
         val todoName = itemView?.findViewById<TextView>(R.id.todo_list_todoName)
         val dday = itemView?.findViewById<TextView>(R.id.todo_list_dDay)
+        val checkbox = itemView?.findViewById<CheckBox>(R.id.todo_list_checkbox)
+        var done = 0
+
+        fun getcheckbox_is_checked(){
+            checkbox.setChecked(false)
+            if (checkbox.isChecked) {
+                done = 1
+            }
+        }
+
         /* bind 함수는 ViewHolder와 클래스의 각 변수를 연동하는 역할을 한다. Overrdie할 함수에서 사용하게 된다.
         쉽게 말해 이쪽 TextView엔 이 String을 넣어라, 라고 지정하는 함수라고 보면 된다.*/
         fun bind(category: Todo_list_data, context: Context) {

@@ -15,6 +15,7 @@ import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import com.example.studywithme.scheduling.Goal_list_adapter
 import com.example.studywithme.scheduling.Goal_list_data
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.*
 import org.json.JSONArray
@@ -44,6 +45,10 @@ class Home : Fragment() {
     var goalListAdapter: Goal_list_adapter? = null
     // test용 사용자 아이디는 0으로 임시 설정했음
     val userID = "1"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -147,7 +152,7 @@ class Home : Fragment() {
     // 카테고리 데이터 db 추가
     fun add_goalData_to_DB(user_id: String, goal_name: String, dday: String) {
         // url 만들기
-        val url = "http://10.0.2.2/insert.php"
+        val url = "http://203.245.10.33:8888/scheduling/insert.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
             .add("user_id",user_id) // user_id 일단 임의로 1으로 저장
@@ -176,7 +181,7 @@ class Home : Fragment() {
     // db에서 php로 데이터 가져오기 (+userID 체크 추가)
     fun getGoalList_from_DB(phpName: String) {
         // url 만들기
-        val url = "http://10.0.2.2/" + phpName + ".php"
+        val url = "http://203.245.10.33:8888/scheduling/" + phpName + ".php"
         // POST로 보낼 데이터 설정
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()

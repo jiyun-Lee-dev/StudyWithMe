@@ -23,6 +23,7 @@ class SharedPreferences(context: Context) {
     val PREF_KEY_MY_USERID = "myUserIdData"
 
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+    val editor = prefs.edit()
 
     /* get/set 함수 임의 설정. get 실행 시 저장된 값을 반환하며 default 값은 ""
     * set(value) 실행 시 값을 대체한 후 저장 */

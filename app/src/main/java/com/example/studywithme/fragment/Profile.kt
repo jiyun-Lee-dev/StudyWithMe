@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.widget.TextView
-
+import com.example.studywithme.data.App
 import com.example.studywithme.R
 import okhttp3.*
 import org.json.JSONArray
@@ -17,7 +17,6 @@ import android.view.*
 
 
 class Profile : Fragment() {
-
     //val userid:String = App.prefs.myUserIdData
     val userid = "test"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -87,6 +86,10 @@ class Profile : Fragment() {
                 AlertDialog.Builder(activity/* 해당 액티비티를 가르킴 */)
                     .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
                     .setPositiveButton("로그아웃", DialogInterface.OnClickListener { dialog, whichButton ->
+                        // preference 데이터 삭제
+                        var editor = App.prefs.editor
+                        editor.clear()
+                        editor.apply()
                         val i = Intent(activity, LoginActivity::class.java)
                         //i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

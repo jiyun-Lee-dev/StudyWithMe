@@ -4,6 +4,7 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import com.example.studywithme.R
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,31 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class View_Month_Acheivement : Fragment() {
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // 캘린더에서 골네임 받아오기
+        val Goal_name = view?.findViewById<TextView>(R.id.Goal_name)
+        val args = getArguments()
+        if (args != null) {
+            //val mArgs = arguments
+            var goal_name = args?.getString("goal_name")
+            Log.d("get", goal_name)
+            Goal_name?.setText(goal_name)
+            Log.d("Goal_name_month", Goal_name?.text.toString())
+        }
+        // 캘린더에서 디데이 받아오기
+        val Goal_day=view?.findViewById<TextView>(R.id.D_day_month)
+        val args1=getArguments()
+        if (args1 != null) {
+            //val mArgs = arguments
+            var goal_day= args1?.getString("d_day")
+            Log.d("get", goal_day)
+            D_day_month?.setText(goal_day)
+            Log.d("Goal_day_month", Goal_day?.text.toString())
+        }
+    }
 
 
     //년도 계산 함수
@@ -72,19 +98,31 @@ class View_Month_Acheivement : Fragment() {
         month_view_next.setText(next_month+"월"+"▶▶")
         no_meaning.setText(period.toString())
 
+        val Goal_name = view?.findViewById<TextView>(R.id.Goal_name)
+        val Goal_day = view?.findViewById<TextView>(R.id.D_day_month)
+
         // 프래그먼트 버튼에서 할일별 달성률 프래그먼트로 연결하는 코드
         val view_todo = view.findViewById<Button>(R.id.button_view_todo_acheivement3)
         view_todo.setOnClickListener {
-            val fragment = View_Todo_Acheivement() // Fragment 생성
+            val fragment1 = View_Todo_Acheivement() // Fragment 생성
+            var bundle1: Bundle = Bundle(1)
+            bundle1.putString("goal_name",Goal_name.text.toString())
+            bundle1.putString("d_day",Goal_day.text.toString())
+            Log.d("Goal_name_pass1", Goal_name.text.toString())
+            fragment1.arguments = bundle1
             val fm = fragmentManager
             val fmt = fm?.beginTransaction()
-            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+            fmt?.replace(R.id.content, fragment1)?.addToBackStack(null)?.commit()
         }
 
         // 프래그먼트 버튼에서 오늘 달성률 프래그먼트로 연결하는 코드
         val view_today = view.findViewById<Button>(R.id.button_view_today_acheivement3)
         view_today.setOnClickListener {
             val fragment = View_Today_Acheivement() // Fragment 생성
+            var bundle1: Bundle = Bundle(1)
+            bundle1.putString("goal_name",Goal_name.text.toString())
+            bundle1.putString("d_day",Goal_day.text.toString())
+            fragment.arguments = bundle1
             val fm = fragmentManager
             val fmt = fm?.beginTransaction()
             fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
