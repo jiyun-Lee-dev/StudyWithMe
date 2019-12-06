@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.studywithme.R
+import com.example.studywithme.data.App
 import com.example.studywithme.data.UserRecommend
 import kotlinx.android.synthetic.main.recommend_user_item.view.*
 import okhttp3.*
@@ -54,8 +55,7 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): 
                 .show()
 
             val url = "http://203.245.10.33:8888/recommend/UserFollow.php"
-            var userid = "test"
-            //val userid:String = App.prefs.myUserIdData
+            val userid:String = App.prefs.myUserIdData
             val follow_id:String = items[position].id
             Log.d("follow_id", follow_id)
             val requestBody: RequestBody = FormBody.Builder()

@@ -1,6 +1,5 @@
 package com.example.studywithme
 
-import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -16,8 +15,12 @@ import com.example.studywithme.fragment.*
 import com.example.studywithme.recommend.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.bottomNavi
-import kotlinx.android.synthetic.main.activity_second.*
-import kotlinx.android.synthetic.main.bookmark_main.*
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity() {
 

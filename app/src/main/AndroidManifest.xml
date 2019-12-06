@@ -23,12 +23,14 @@
             </intent-filter>
             <!-- 다른 앱(안드로이드의 다른 웹 브라우저)에서 공유 기능을 사용했을 때 내 앱이 검색되도록 하기 위한 부분 -->
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="image/*"/>
                 <data android:mimeType="text/plain"/>
+
             </intent-filter>
         </activity>
         <activity android:name=".Board.Write_Board"></activity>

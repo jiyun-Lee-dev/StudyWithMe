@@ -14,12 +14,12 @@ import android.content.Intent
 import android.app.AlertDialog
 import com.example.studywithme.ui.login.LoginActivity
 import android.view.*
+import com.example.studywithme.data.App
 
 
 class Profile : Fragment() {
 
-    //val userid:String = App.prefs.myUserIdData
-    val userid = "test"
+    val userid:String = App.prefs.myUserIdData
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view:View = inflater.inflate(R.layout.fragment_profile, container, false)
 

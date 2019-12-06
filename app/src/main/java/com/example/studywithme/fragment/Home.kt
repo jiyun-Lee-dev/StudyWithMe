@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
+import com.example.studywithme.data.App
 import com.example.studywithme.scheduling.Goal_list_adapter
 import com.example.studywithme.scheduling.Goal_list_data
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -43,7 +44,7 @@ class Home : Fragment() {
     var itemcnt = 0
     var goalListAdapter: Goal_list_adapter? = null
     // test용 사용자 아이디는 0으로 임시 설정했음
-    val userID = "1"
+    val userID:String = App.prefs.myUserIdData
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -288,11 +289,6 @@ class Home : Fragment() {
                 val fm = fragmentManager
                 val fmt = fm?.beginTransaction()
                 fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-            }
-
-            //뒤로가기 버튼 클릭 시
-            android.R.id.home -> {
-                activity!!.onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

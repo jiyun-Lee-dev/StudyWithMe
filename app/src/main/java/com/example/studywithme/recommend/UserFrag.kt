@@ -1,9 +1,11 @@
 package com.example.studywithme.recommend
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,38 +13,66 @@ import android.view.ViewGroup
 import com.example.studywithme.R
 import com.example.studywithme.data.UserRecommend
 import android.util.Log
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
 import com.example.studywithme.data.App
+import com.example.studywithme.data.Goal
+import com.example.studywithme.data.InfoRecommend
 import okhttp3.*
 import org.json.JSONArray
+import org.jsoup.HttpStatusException
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
 import java.io.IOException
 
 class UserFrag : Fragment(){
 
     val goalList = ArrayList<String>()
     val userList = mutableListOf<UserRecommend>()
-    //val userid:String = App.prefs.myUserIdData
-    val user:String = App.prefs.myUserIdData
+    val userid:String = App.prefs.myUserIdData
+    var chosenGoal:String = "테스트"
 
-    var chosenGoal:String = ""
-    var userid = "test"
+    var mContext: Context? = null
+    var rv_user_list: RecyclerView? = null
 
-
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_user, container, false)
-        val recyclerview = view.findViewById(R.id.rv_user_list) as RecyclerView
 
-        Log.d("prefs", user)
-        goalList.add("전체 보기")
+        mContext=view.context
+        rv_user_list = view.findViewById(R.id.rv_user_list) as RecyclerView
 
-        fun getUserList() {
-            userList.clear()
+        //if (chosenGoal == "전체 보기") chosenGoal = "%"
 
-            if (chosenGoal == "전체 보기") chosenGoal = "%"
+        val bundle = arguments
+        if (bundle != null) {
+            chosenGoal = bundle.getString("chosenGoal")
+        }
 
+        userList.removeAll(userList)
+        Log.d("userfag", chosenGoal)
+
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        MyAsyncTask().execute()
+    }
+
+    inner class MyAsyncTask: AsyncTask<Void, String, String>(){ //input, progress update type, result type
+        private var result : String = "success"
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            //progressBar.visibility = View.VISIBLE
+        }
+
+        override fun doInBackground(vararg params: Void): String {
             val user_url = "http://203.245.10.33:8888/recommend/getUserList.php"
             val user_requestBody: RequestBody = FormBody.Builder()
                 .add("user_id", userid) // 사용자 id
@@ -65,10 +95,6 @@ class UserFrag : Fragment(){
                     var result_array: JSONArray = JSONArray(response.body!!.string())
                     var size = result_array.length() - 1
 
-                    /*
-                    if(userList.size >= 0)
-                       userList.removeAll(userList)
-                    */
 
                     for (i in 0..size) {
                         var UserId =
@@ -95,73 +121,19 @@ class UserFrag : Fragment(){
 
                     getActivity()?.runOnUiThread {
                         // 어댑터에 데이터변경사항 알리기
-                        recyclerview.adapter?.notifyDataSetChanged()
+                        rv_user_list!!.adapter?.notifyDataSetChanged()
                     }
 
                 }
             })
-
-            val activity = activity as Context
-            recyclerview.adapter = UserAdapter(activity, userList)
-            recyclerview.layoutManager = GridLayoutManager(activity, 2)
-
+            return result
         }
 
-        getUserList()
+        override fun onPostExecute(result: String) {
+            var adapter = UserAdapter(mContext!!, userList)
+            rv_user_list!!.adapter = adapter
+            rv_user_list!!.layoutManager = GridLayoutManager(activity, 2)
 
-
-        /* user별 goal list spinner */
-        val goal_url = "http://203.245.10.33:8888/recommend/getGoalList.php"
-        val goal_client = OkHttpClient()
-
-        val goal_requestBody: RequestBody = FormBody.Builder()
-            .add("user_id", userid) // 사용자 id
-            .build()
-
-        val goal_request = Request.Builder()
-            .url(goal_url)
-            .post(goal_requestBody)
-            .build()
-
-        goal_client.newCall(goal_request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("응답 fail", e.toString())
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                var goal_result_array: JSONArray = JSONArray(response.body!!.string())
-                var size: Int = goal_result_array.length() - 1
-                for (i in 0..size) {
-                    var goal = goal_result_array.getJSONObject(i).getString("goal_name")
-                    goalList.add(goal)
-                }
-            }
-        })
-
-        //val spinner = view.findViewById(R.id.goal_spinner)
-        val spinner:Spinner=view.findViewById(R.id.user_goal_spinner)
-        val items = ArrayAdapter(activity, android.R.layout.simple_spinner_item, goalList)
-        items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner?.adapter = items
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                userList.clear()
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                chosenGoal = goalList[position]
-                getUserList()
-            }
         }
-
-
-        return view
     }
-
-
 }

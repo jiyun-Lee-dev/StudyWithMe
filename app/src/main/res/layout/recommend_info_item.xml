@@ -8,29 +8,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:orientation="vertical"
-        android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/recommend_info_item_border">
 
         <TextView
             android:id="@+id/recommend_info_header"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:textSize="16sp"
-            android:textColor="#2378e8"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             tools:text="Header" />
 
         <TextView
             android:id="@+id/recommend_info_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:textSize="12sp"
             tools:text="Content"/>
     </LinearLayout>
