@@ -51,7 +51,7 @@ class BookmarkActivity_category_list_Adapter (val context: Context, val category
             var bundle: Bundle = Bundle()
             bundle.putString("category_name", holder?.categoryName.text.toString())
             if (topFragment.arguments == null){
-               Log.d("카테고리 프래그먼트 응답", "번들 없음")
+                Log.d("카테고리 프래그먼트 응답", "번들 없음")
             } else {
                 Log.d("카테고리 프래그먼트 응답", "번들 있음")
                 var sharedLinkURL = topFragment.arguments!!.getString("sharedLinkURL")
@@ -73,13 +73,13 @@ class BookmarkActivity_category_list_Adapter (val context: Context, val category
         id를 통해 layout과 연결된다.*/
         val categoryItemLayout = itemView?.findViewById<LinearLayout>(R.id.categoryName_linearLayout)
         val categoryName = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_categoryName)
-        val detailedWork = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_detailedWork)
+        val bookmarkGoal = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_bookmarkGoal)
         /* bind 함수는 ViewHolder와 클래스의 각 변수를 연동하는 역할을 한다. Overrdie할 함수에서 사용하게 된다.
         쉽게 말해 이쪽 TextView엔 이 String을 넣어라, 라고 지정하는 함수라고 보면 된다.*/
         fun bind(category: BookmarkActivity_category, context: Context) {
             /*TextView와 String 데이터 연결하기*/
             categoryName?.text = category.categoryName
-            detailedWork?.text = category.detailedWork
+            bookmarkGoal?.text = category.bookmarkGoal
         }
     }
 }

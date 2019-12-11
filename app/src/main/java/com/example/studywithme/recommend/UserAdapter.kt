@@ -44,7 +44,7 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
                     Log.d("리소스", resourceId.toString())
                     tvImg?.setImageResource(resourceId)
                 } else {
-                    tvImg?.setImageResource(R.mipmap.ic_launcher)
+                    tvImg?.setImageResource(R.drawable.ic_account_circle_gray_24dp)
                 }
                 tvName.text = item.name
                 tvGoal.text = item.goal

@@ -12,21 +12,21 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:textAlignment="center">
-<!--
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/bookmark_category_show_links_btn"
-                android:layout_width="30dp"
-                android:layout_height="25dp"
-                android:background="@drawable/iconmonstr_angel_down_thin_240"
-                android:layout_margin="10dp"
-                />
-        </LinearLayout>
--->
+        <!--
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/bookmark_category_show_links_btn"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/iconmonstr_angel_down_thin_240"
+                        android:layout_margin="10dp"
+                        />
+                </LinearLayout>
+        -->
         <LinearLayout
             android:id="@+id/categoryName_linearLayout"
             android:layout_width="wrap_content"
@@ -46,32 +46,32 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="CategoryName" />
             <TextView
-                android:id="@+id/bookmark_category_list_item_detailedWork"
+                android:id="@+id/bookmark_category_list_item_bookmarkGoal"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="4dp"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@+id/bookmark_category_list_item_categoryName"
-                tools:text="DetailedWork" />
+                tools:text="BookmarkGoal" />
         </LinearLayout>
-<!--
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:layout_weight="1">
+        <!--
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:layout_weight="1">
 
-            <Button
-                android:id="@+id/bookmark_category_edit_links_btn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/iconmonstr_menu_thin_240"
-                android:visibility="gone"
-                 />
-        </LinearLayout>
--->
+                    <Button
+                        android:id="@+id/bookmark_category_edit_links_btn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/iconmonstr_menu_thin_240"
+                        android:visibility="gone"
+                         />
+                </LinearLayout>
+        -->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

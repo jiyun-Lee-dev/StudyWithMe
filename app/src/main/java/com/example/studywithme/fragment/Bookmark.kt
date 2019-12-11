@@ -31,7 +31,7 @@ class Bookmark : Fragment(){
     var bookmarkDialogBuilder: AlertDialog.Builder? = null
     var bookmarkCategoryList: RecyclerView? = null
     var categoryList = arrayListOf<BookmarkActivity_category>()
-    var itemcnt = 0
+    var categorylist_no_item_msg: TextView? = null
     var categoryListAdapter: BookmarkActivity_category_list_Adapter? = null
     var category_list_linearLayoutManager: LinearLayoutManager? = null
     private val userID = App.prefs.myUserIdData
@@ -68,6 +68,7 @@ class Bookmark : Fragment(){
         bookmarkCategoryList = view!!.findViewById<RecyclerView>(R.id.bookmark_category_list)
         /* 추가로, ListViewAdapter와는 다르게, RecylcerView Adapter에서는 레이아웃 매니저를 설정해주어야 한다.*/
         category_list_linearLayoutManager = LinearLayoutManager(view.context)
+        categorylist_no_item_msg = view.findViewById<TextView>(R.id.bookmark_category_list_has_no_item_msg)
 
         return view
     }
@@ -79,6 +80,7 @@ class Bookmark : Fragment(){
         // 상단바 이름 바꾸기
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "북마크"
+        categorylist_no_item_msg!!.text = "아직 추가된 카테고리가 없습니다."
         bookmarkCategoryList!!.adapter = categoryListAdapter
         bookmarkCategoryList!!.layoutManager = category_list_linearLayoutManager
         /* recyclerView에 setHasFixedSize 옵션에 true값을 준다.
@@ -140,7 +142,7 @@ class Bookmark : Fragment(){
             }
         })
     }
-    
+
     // menu에 있는 메뉴 클릭 시 이벤트 처리
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
@@ -164,8 +166,9 @@ class Bookmark : Fragment(){
     fun update_categoryList(resultData: String?){
         // resultData가 실패일 경우 처리해주는 부분이 없어서 가끔 오류남.
         if (resultData == "실패"){
-            Toast.makeText(context, "시스템 오류입니다. 다시 한번 시도해주세요.", Toast.LENGTH_LONG)
+            //categorylist_no_item_msg!!.visibility = View.VISIBLE
         } else {
+            //categorylist_no_item_msg!!.visibility = View.GONE
             var result_array: JSONArray = JSONArray(resultData)
             var jsonobj_index = result_array.length() - 1
             // db에서 가져온 데이터가 0 이상일 때만 카테고리 리스트 한번 리셋하고 리스트 업데이트
@@ -175,15 +178,15 @@ class Bookmark : Fragment(){
                     // 카테고리 이름
                     var categoryName = result_array.getJSONObject(i).getString("category_name").toString()
                     // 연결된 세부 목표 이름
-                    var detailedWork = result_array.getJSONObject(i).getString("detail_name").toString()
-                    if (detailedWork == ""){
-                        detailedWork = "연결된 세부 목표 없음"
+                    var bookmarkGoal = result_array.getJSONObject(i).getString("goal_name").toString()
+                    if (bookmarkGoal == ""){
+                        bookmarkGoal = "연결된 세부 목표 없음"
                     }
                     /* 카테고리 리스트에 아이템 추가 */
                     var newCategoryItem =
                         BookmarkActivity_category(
                             categoryName,
-                            detailedWork
+                            bookmarkGoal
                         )
                     categoryList.add(newCategoryItem)
                 }
