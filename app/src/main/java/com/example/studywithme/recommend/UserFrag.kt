@@ -13,10 +13,13 @@ import android.view.ViewGroup
 import com.example.studywithme.R
 import com.example.studywithme.data.UserRecommend
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.*
 import com.example.studywithme.data.App
 import com.example.studywithme.data.Goal
 import com.example.studywithme.data.InfoRecommend
+import kotlinx.android.synthetic.main.fragment_user.*
 import okhttp3.*
 import org.json.JSONArray
 import org.jsoup.HttpStatusException
@@ -27,13 +30,14 @@ import java.io.IOException
 
 class UserFrag : Fragment(){
 
-    val goalList = ArrayList<String>()
     val userList = mutableListOf<UserRecommend>()
     val userid:String = App.prefs.myUserIdData
     var chosenGoal:String = "테스트"
 
     var mContext: Context? = null
     var rv_user_list: RecyclerView? = null
+
+    var itemcnt = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +125,16 @@ class UserFrag : Fragment(){
 
                     getActivity()?.runOnUiThread {
                         // 어댑터에 데이터변경사항 알리기
+                        itemcnt = rv_user_list!!.adapter!!.getItemCount()
                         rv_user_list!!.adapter?.notifyDataSetChanged()
+
+                        if(itemcnt <= 0){
+                            recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없습니다."
+                            recommend_user_list_has_no_item_msg.visibility = VISIBLE
+                        }
+                        else {
+                            recommend_user_list_has_no_item_msg.visibility = GONE
+                        }
                     }
 
                 }
@@ -130,10 +143,12 @@ class UserFrag : Fragment(){
         }
 
         override fun onPostExecute(result: String) {
-            var adapter = UserAdapter(mContext!!, userList)
+            var adapter = UserAdapter(mContext!!, userList, this@UserFrag)
             rv_user_list!!.adapter = adapter
             rv_user_list!!.layoutManager = GridLayoutManager(activity, 2)
 
         }
     }
+
+
 }

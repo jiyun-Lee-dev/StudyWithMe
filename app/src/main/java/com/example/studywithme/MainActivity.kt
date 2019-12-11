@@ -138,4 +138,9 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.content, fragment)
             .commitAllowingStateLoss()
     }
+
+    fun fromAdaptertoFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+    }
+
 }

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,17 +15,23 @@ import android.widget.ImageView
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.data.UserRecommend
+import com.example.studywithme.fragment.Profile
 import kotlinx.android.synthetic.main.recommend_user_item.view.*
 import okhttp3.*
 import java.io.IOException
+import com.example.studywithme.MainActivity
 
-class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
+
+
+class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, val topFrag: Fragment): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = UserViewHolder(parent)
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+
+        var follow_id = ""
 
         items[position].let { item ->
             with(holder) {
@@ -43,7 +51,6 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): 
             }
         }
 
-
         val button = holder.follow_button
 
         button?.setOnClickListener(View.OnClickListener {
@@ -56,8 +63,7 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): 
 
             val url = "http://203.245.10.33:8888/recommend/UserFollow.php"
             val userid:String = App.prefs.myUserIdData
-            val follow_id:String = items[position].id
-            Log.d("follow_id", follow_id)
+            follow_id = items[position].id
             val requestBody: RequestBody = FormBody.Builder()
                 .add("user_id", userid) // 사용자 id
                 .add("follow_id", follow_id) // 추가할 id
@@ -89,10 +95,25 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>): 
         })
 
 
+        val user_item = holder.user_item
+        follow_id = items[position].id
+        val activity = topFrag.activity as MainActivity
+        user_item.setOnClickListener(View.OnClickListener {
+            val fragment = Profile()
+            val bundle = Bundle(1)
+            bundle.putString("userid", follow_id)
+            fragment.arguments=bundle
+
+            activity.fromAdaptertoFragment(fragment)
+        })
+
+
     }
 
     inner class UserViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.recommend_user_item, parent, false)) {
+        val context = parent.context
+        val user_item = itemView.user_item
         val tvImg:ImageView = itemView.recommend_user_img
         val tvName = itemView.recommend_user_name
         val tvGoal = itemView.recommend_user_goal

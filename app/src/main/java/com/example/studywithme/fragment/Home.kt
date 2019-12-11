@@ -26,6 +26,10 @@ import java.time.format.DateTimeFormatter
 
 class Home : Fragment() {
 
+
+    val userID:String = App.prefs.myUserIdData
+    val username:String = App.prefs.myUserNameData
+
     var activity: MainActivity? = null
 
     override fun onAttach(context: Context) {
@@ -43,8 +47,6 @@ class Home : Fragment() {
     var goalList = arrayListOf<Goal_list_data>()
     var itemcnt = 0
     var goalListAdapter: Goal_list_adapter? = null
-    // test용 사용자 아이디는 0으로 임시 설정했음
-    val userID:String = App.prefs.myUserIdData
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -56,6 +58,9 @@ class Home : Fragment() {
         // 상단바 이름 바꾸기
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "스터디위드미"
+
+        val home_goal_username:TextView = view.findViewById(R.id.home_goal_username)
+        home_goal_username.text = username + "의 목표 목록"
 
 
         // RecyclerView 사용할 것. 어댑터를 생성
@@ -285,7 +290,10 @@ class Home : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.home_profile -> {
-                val fragment = Profile() // Fragment 생성
+                val fragment = Profile()
+                val bundle = Bundle(1)
+                bundle.putString("userid", userID)
+                fragment.arguments=bundle
                 val fm = fragmentManager
                 val fmt = fm?.beginTransaction()
                 fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()

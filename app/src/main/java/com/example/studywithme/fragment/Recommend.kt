@@ -119,7 +119,6 @@ class Recommend : Fragment() {
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "추천"
 
-        Log.d("real", chosenGoal)
         chooseGoal(chosenGoal)
     }
 
