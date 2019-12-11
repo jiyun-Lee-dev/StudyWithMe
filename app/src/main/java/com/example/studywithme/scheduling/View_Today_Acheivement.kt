@@ -1,6 +1,7 @@
 package com.example.studywithme.scheduling
 
 import android.content.Intent
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,10 +9,12 @@ import com.example.studywithme.R
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import kotlinx.android.synthetic.main.fragment_calendar_view_today_acheivement.*
 
 
@@ -25,9 +28,12 @@ import kotlinx.android.synthetic.main.fragment_calendar_view_today_acheivement.*
 //     }
 
 
-
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
+         setHasOptionsMenu(true)
+         // 상단바 이름 바꾸기
+         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+         toolbarTitle.text = "Schedule"
          // 캘린더에서 골네임 받아오기
          val Goal_name = view?.findViewById<TextView>(R.id.Goal_name)
          val args = getArguments()
@@ -73,14 +79,22 @@ import kotlinx.android.synthetic.main.fragment_calendar_view_today_acheivement.*
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          val view: View = inflater.inflate(R.layout.fragment_calendar_view_today_acheivement,container, false)
 
-
-
-
          val date_view1 = view.findViewById<TextView>(R.id.date_view1)
          val date_view2 = view.findViewById<TextView>(R.id.date_view2)
          val date_view3 = view.findViewById<TextView>(R.id.date_view3)
 
+         //progressbar
+         val progress1:RoundCornerProgressBar=view.findViewById(R.id.progress_1)
+         progress1.progressColor = Color.parseColor("#83cac5")
+         progress1.progressBackgroundColor=Color.parseColor("#e0e0e0")
+         progress1.max= 70F
+         progress1.progress=15F
 
+         val progress2:RoundCornerProgressBar=view.findViewById(R.id.progress_2)
+         progress2.progressColor = Color.parseColor("#83cac5")
+         progress2.progressBackgroundColor=Color.parseColor("#e0e0e0")
+         progress2.max= 70F
+         progress2.progress=55F
 
 
         date_view1.setText(yesterday_date)
@@ -129,6 +143,23 @@ import kotlinx.android.synthetic.main.fragment_calendar_view_today_acheivement.*
 
 
 
+     }
+     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+         when(item?.itemId){
+             //뒤로가기 버튼 클릭 시
+             android.R.id.home -> {
+                 fragmentManager!!.beginTransaction()
+                     .replace(R.id.content, View_Todo_List())
+                     .commitAllowingStateLoss()
+             }
+             R.id.search -> {
+
+             }
+             R.id.edit -> {
+
+             }
+         }
+         return super.onOptionsItemSelected(item)
      }
 
 //     override fun onSaveInstanceState(outState: Bundle) {

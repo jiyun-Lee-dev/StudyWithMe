@@ -11,12 +11,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
+import com.example.studywithme.Board.MyboardFrag
+import com.example.studywithme.Board.Write_post
 import com.example.studywithme.DialogFragment.DialogAddBookMarkLink
 import com.example.studywithme.fragment.*
 import com.example.studywithme.recommend.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.bottomNavi
-import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.bookmark_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -135,4 +136,24 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.content, fragment)
             .commitAllowingStateLoss()
     }
+
+    fun onFragmentChange(index:Int) {
+        if(index==1) {
+
+            supportFragmentManager.beginTransaction().replace(R.id.content, Write_post()).commit()
+        }
+        else if(index==2){
+            supportFragmentManager.beginTransaction().replace(R.id.content, MyboardFrag()).commit()
+            bottomNavi.setSelectedItemId(R.id.action_board)
+        }
+
+    }
+
+    fun fragmentChange_for_adapter(frag: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.content, frag).commit()
+    }
+    fun fromAdaptertoFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
+    }
+
 }

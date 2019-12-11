@@ -36,6 +36,7 @@
             tools:ignore="MissingConstraints"
             android:layout_weight="7">
             <TextView
+                android:fontFamily="@font/nanum2"
                 android:id="@+id/bookmark_link_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
                 tools:text="링크 제목"
                  />
             <TextView
+                android:fontFamily="@font/nanum2"
                 android:id="@+id/bookmark_link_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
                 tools:text="링크 url주소"
                 />
             <TextView
+                android:fontFamily="@font/nanum2"
                 android:id="@+id/bookmark_link_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import com.example.studywithme.R
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -20,6 +21,10 @@ class View_Month_Acheivement : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        // 상단바 이름 바꾸기
+        var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = "Schedule"
         // 캘린더에서 골네임 받아오기
         val Goal_name = view?.findViewById<TextView>(R.id.Goal_name)
         val args = getArguments()
@@ -137,7 +142,23 @@ class View_Month_Acheivement : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            //뒤로가기 버튼 클릭 시
+            android.R.id.home -> {
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.content, View_Todo_List())
+                    .commitAllowingStateLoss()
+            }
+            R.id.search -> {
 
+            }
+            R.id.edit -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
 

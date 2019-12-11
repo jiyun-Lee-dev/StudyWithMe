@@ -78,7 +78,7 @@ class Bookmark : Fragment(){
         setOnClickedListener()
         // 상단바 이름 바꾸기
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
-        toolbarTitle.text = "북마크"
+        toolbarTitle.text = "BookMark"
         bookmarkCategoryList!!.adapter = categoryListAdapter
         bookmarkCategoryList!!.layoutManager = category_list_linearLayoutManager
         /* recyclerView에 setHasFixedSize 옵션에 true값을 준다.
