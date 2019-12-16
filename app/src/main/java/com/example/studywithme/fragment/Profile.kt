@@ -204,9 +204,8 @@ class Profile : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             android.R.id.home -> {
-                fragmentManager!!.beginTransaction()
-                    .replace(R.id.content, Recommend())
-                    .commitAllowingStateLoss()
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
             }
             R.id.profile_logout -> {
                 AlertDialog.Builder(activity/* 해당 액티비티를 가르킴 */)
@@ -228,13 +227,6 @@ class Profile : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /* button option
-        1. 설정
-        2. 팔로우
-        3. 팔로우 취소
-        */
-
-        Log.d("resulttt1", check)
         if (userid==accountid){
             home_add_goal.visibility = VISIBLE
             profile_add_or_edit_btn.text = "설정"
@@ -244,63 +236,6 @@ class Profile : Fragment() {
             profile_add_or_edit_btn.text = "팔로우 취소"
             profile_add_or_edit_btn.setBackgroundResource(R.drawable.unfollow_btn_shape)
         }
-        /*
-        else {
-            profile_add_or_edit_btn.setOnClickListener(){
-
-                val dialog = AlertDialog.Builder(context)
-
-                val url = "http://203.245.10.33:8888/recommend/UserFollow.php"
-                val follow_id = userid
-                val requestBody: RequestBody = FormBody.Builder()
-                    .add("user_id", accountid) // 사용자 id
-                    .add("follow_id", follow_id) // 추가할 id
-                    .build()
-
-                val request = Request.Builder()
-                    .url(url)
-                    .post(requestBody)
-                    .build()
-
-                var result = ""
-                val client = OkHttpClient()
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onResponse(call: Call, response: Response) {
-                        result=response.body!!.string()
-                        Log.d("resulttt",result)
-                    }
-                    override fun onFailure(call: Call, e: IOException) {
-                        Log.e("요청 ", e.toString())
-                    }
-                })
-
-                Log.d("resulttt2",result)
-                if(result.equals("follow")) {
-                    dialog
-                        .setMessage("친구를 팔로우 했어요!")
-                        .setPositiveButton(
-                            "OK",
-                            DialogInterface.OnClickListener { dialogInterface, i -> })
-                        .show()
-
-                    profile_add_or_edit_btn.text = "팔로우 취소"
-                    profile_add_or_edit_btn.setBackgroundResource(R.drawable.unfollow_btn_shape)
-                }
-                else{
-                    dialog
-                        .setMessage("팔로우를 취소했어요!")
-                        .setPositiveButton(
-                            "OK",
-                            DialogInterface.OnClickListener { dialogInterface, i -> })
-                        .show()
-
-                    profile_add_or_edit_btn.text = "팔로우"
-                    profile_add_or_edit_btn.setBackgroundResource(R.drawable.follow_btn_shape)
-                }
-
-            }
-        }
-         */
 
     }
 }

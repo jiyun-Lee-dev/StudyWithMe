@@ -28,8 +28,6 @@ class FollowAdapter(val context: Context, val items: MutableList<Follow>, val to
 
     override fun onBindViewHolder(holder: FollowViewHolder, position: Int) {
         var check = "follow"
-        //var result = "unfollow"
-
 
         items[position].let { item ->
             with(holder) {
@@ -129,30 +127,6 @@ class FollowAdapter(val context: Context, val items: MutableList<Follow>, val to
                 follow_button.text = "팔로우"
                 follow_button.setBackgroundResource(R.drawable.follow_btn_shape)
             }
-            /*
-            if(result.equals("follow")) {
-                dialog
-                    .setMessage("친구를 팔로우 했어요!")
-                    .setPositiveButton(
-                        "OK",
-                        DialogInterface.OnClickListener { dialogInterface, i -> })
-                    .show()
-
-                follow_button.text = "팔로우 취소"
-                follow_button.setBackgroundResource(R.drawable.unfollow_btn_shape)
-            }
-            else{
-                dialog
-                    .setMessage("팔로우를 취소했어요!")
-                    .setPositiveButton(
-                        "OK",
-                        DialogInterface.OnClickListener { dialogInterface, i -> })
-                    .show()
-
-                follow_button.text = "팔로우"
-                follow_button.setBackgroundResource(R.drawable.follow_btn_shape)
-            }
-             */
         })
 
 

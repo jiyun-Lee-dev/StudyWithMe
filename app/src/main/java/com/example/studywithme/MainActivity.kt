@@ -23,6 +23,10 @@ import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.example.studywithme.fragment.Calendar
 import java.util.*
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -89,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     // 핸드폰 뒤로 가기 버튼 클릭 시 이벤트 처리. 근데 이건 메뉴에 있는 뒤로가기가 아님. 걍 핸드폰 백 버튼임.
     override fun onBackPressed() {
         /* 사용자가 뒤로가기 버튼을 터치할 때마다 현재 시간을 저장해놓는다.
@@ -101,6 +106,9 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "'뒤로가기' 버튼을 한번 더 누르면 어플리케이션이 종료됩니다.", Toast.LENGTH_SHORT).show()
         lastTimeBackPressed = System.currentTimeMillis()
     }
+
+
+
 
     /* 하단바에서 메뉴 선택하면 해당 프래그먼트로 replace해주는 함수를 호출
     함수프래그먼트를 다른 것으로 교체하고 이전 상태를 백 스택에 보존합니다.

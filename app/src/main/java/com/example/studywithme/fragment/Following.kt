@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -46,6 +47,8 @@ class Following : Fragment() {
 
         setHasOptionsMenu(true)
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
+
+        followList.removeAll(followList)
 
         return view
     }
@@ -119,5 +122,14 @@ class Following : Fragment() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
