@@ -19,7 +19,10 @@ import android.support.v4.app.SupportActivity
 import android.support.v4.app.SupportActivity.ExtraData
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.example.studywithme.fragment.Calendar
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -142,5 +145,6 @@ class MainActivity : AppCompatActivity() {
     fun fromAdaptertoFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
     }
+
 
 }

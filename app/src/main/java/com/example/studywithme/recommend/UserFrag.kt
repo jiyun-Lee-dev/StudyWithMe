@@ -129,7 +129,7 @@ class UserFrag : Fragment(){
                         rv_user_list!!.adapter?.notifyDataSetChanged()
 
                         if(itemcnt <= 0){
-                            recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없습니다."
+                            recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없어요."
                             recommend_user_list_has_no_item_msg.visibility = VISIBLE
                         }
                         else {
