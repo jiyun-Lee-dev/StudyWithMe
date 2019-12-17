@@ -96,6 +96,7 @@ class Recommend : Fragment() {
 
 
         val adapter = RecommendAdapter(childFragmentManager, goal)
+
         viewPager!!.adapter = adapter
         viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 

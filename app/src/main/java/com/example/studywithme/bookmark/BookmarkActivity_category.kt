@@ -2,5 +2,5 @@ package com.example.studywithme.bookmark
 
 class BookmarkActivity_category(
     val categoryName: String,
-    val bookmarkGoal: String
+    val detailedWork: String
 )

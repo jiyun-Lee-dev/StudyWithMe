@@ -1,9 +1,6 @@
 package com.example.studywithme.recommend
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
@@ -15,11 +12,11 @@ import android.widget.ImageView
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.data.UserRecommend
-import com.example.studywithme.fragment.Profile
 import kotlinx.android.synthetic.main.recommend_user_item.view.*
 import okhttp3.*
 import java.io.IOException
 import com.example.studywithme.MainActivity
+import com.example.studywithme.fragment.Profile
 
 
 class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, val topFrag: Fragment): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
@@ -104,7 +101,6 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
 
         })
 
-
         val user_item = holder.user_item
         follow_id = items[position].id
         val activity = topFrag.activity as MainActivity
@@ -133,4 +129,3 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
 
 
 }
-

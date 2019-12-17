@@ -5,29 +5,14 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import com.example.studywithme.DialogFragment.DialogAddBookMarkLink
+import com.example.studywithme.Board.MyboardFrag
+import com.example.studywithme.Board.Write_post
 import com.example.studywithme.fragment.*
-import com.example.studywithme.recommend.*
+import com.example.studywithme.fragment.Calendar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.bottomNavi
-import android.support.v4.app.SupportActivity
-import android.support.v4.app.SupportActivity.ExtraData
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.example.studywithme.fragment.Calendar
-import java.util.*
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -115,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     그러면 각 프래그먼트에서 뒤로가기 버튼 누르면 홈 프래그먼트로 돌아온다.*/
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.action_calendar -> {
+            R.id.action_schedule-> {
                 replaceFragment(calendarFrag)
                 return@OnNavigationItemSelectedListener true
             }
@@ -150,9 +135,24 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 
+    fun onFragmentChange(index:Int) {
+        if(index==1) {
+
+            supportFragmentManager.beginTransaction().replace(R.id.content, Write_post()).commit()
+        }
+        else if(index==2){
+            supportFragmentManager.beginTransaction().replace(R.id.content, MyboardFrag()).commit()
+            bottomNavi.setSelectedItemId(R.id.action_board)
+        }
+
+    }
+
+    fun fragmentChange_for_adapter(frag: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.content, frag).commit()
+    }
+
     fun fromAdaptertoFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
     }
-
 
 }

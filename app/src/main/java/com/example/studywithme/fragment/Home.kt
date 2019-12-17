@@ -1,52 +1,81 @@
 package com.example.studywithme.fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.content.res.AssetManager
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.studywithme.DialogFragment.DialogAddCategory
+import com.example.studywithme.DialogFragment.DialogAddTodayDetailedWork
+import com.example.studywithme.HttpConnection
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
+import com.example.studywithme.bookmark.BookmarkActivity_category
 import com.example.studywithme.data.App
-import com.example.studywithme.scheduling.Goal_list_adapter
-import com.example.studywithme.scheduling.Goal_list_data
+import com.example.studywithme.scheduling.*
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.utils.ColorTemplate
+import io.reactivex.internal.util.BackpressureHelper.add
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import lecho.lib.hellocharts.model.PieChartData
+import lecho.lib.hellocharts.model.SliceValue
+import lecho.lib.hellocharts.view.PieChartView
 import okhttp3.*
+import okio.Utf8
 import org.json.JSONArray
+import org.w3c.dom.Text
+import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
+import java.lang.Exception
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
 class Home : Fragment() {
 
-
-    val userID:String = App.prefs.myUserIdData
-    val username:String = App.prefs.myUserNameData
-
     var activity: MainActivity? = null
+    val userID = App.prefs.myUserIdData
+    val userName = App.prefs.myUserNameData
+    var todayDetailedWorkPieChart: PieChartView? = null
+    var pieData = arrayListOf<SliceValue>()
+    var pieChartData: PieChartData? = null
+    var todayDetailCreateBtn: Button? = null
+    var todayDetailListAdapter: Detail_list_adapter? = null
+    var todayDetailList = arrayListOf<Detail_list_data>()
+    var todayDetailListrecyclerview: RecyclerView? = null
+    var todayDetailListLinearLayoutManager: LinearLayoutManager? = null
+    var getTodayDetailResult: String? = null
+    var httpConn: HttpConnection = HttpConnection()
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = getActivity() as MainActivity
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        activity = null
     }
-
-    /* 골 리스트 선언*/
-    var goalList = arrayListOf<Goal_list_data>()
-    var itemcnt = 0
-    var goalListAdapter: Goal_list_adapter? = null
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -57,228 +86,51 @@ class Home : Fragment() {
 
         // 상단바 이름 바꾸기
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
-        toolbarTitle.text = "스터디위드미"
+        toolbarTitle.text = "StudyWithMe"
 
-        val home_goal_username:TextView = view.findViewById(R.id.home_goal_username)
-        home_goal_username.text = username + "의 목표 목록"
+        todayDetailListAdapter = Detail_list_adapter(view.context, todayDetailList, this)
+        todayDetailListrecyclerview = view!!.findViewById(R.id.home_today_list)
+        todayDetailListLinearLayoutManager = LinearLayoutManager(view.context)
+        todayDetailCreateBtn = view.findViewById<Button>(R.id.home_create_today_detailedWork_btn)
 
-
-        // RecyclerView 사용할 것. 어댑터를 생성
-        goalListAdapter = Goal_list_adapter(view.context, goalList,this)
-
-        /* 목표 추가 다이얼로그. */
-        // 익명 객체 전달. 람다 형식.
-        val home_add_goal_createBtn = view.findViewById<Button>(R.id.home_add_goal)
-        home_add_goal_createBtn.setOnClickListener {
-
-            /* 지윤이꺼 토대로 한 다이얼로그 빌더*/
-            // 다이얼로그 빌더
-            val add_goal_dialogBuilder = AlertDialog.Builder(view.context)
-
-            //val dialog_detailedWork_spinner = add_goal_dialogView.findViewById<Spinner>(R.id.bookmark_detailedWorkList)
-
-            // 레이아웃 인플레이터 선언
-            //val bookmark_dialog : LayoutInflater = LayoutInflater.from(this)
-            // 띄울 엑티비티 안의 View 컨트롤 하기 위해 인플레이트
-            val add_goal_dialogView =
-                layoutInflater.inflate(R.layout.fragment_add_goal_dialog, null)
-                 add_goal_dialogBuilder.setView(add_goal_dialogView)
-
-                .setPositiveButton("확인") { dialogInterface, i ->
-
-                    var dialog_goalName_string = add_goal_dialogView.findViewById<EditText>(R.id.write_name_goal).text.toString()
-                    var dialog_dday_string = add_goal_dialogView.findViewById<EditText>(R.id.write_goal_day_goal).text.toString()
-
-                    //var dialog_detailedWork_string = dialog_detailedWork_spinner.selectedItem.toString()
-                    /* db에 데이터 추가 */
-                    add_goalData_to_DB(userID,dialog_goalName_string,dialog_dday_string)
-
-                    //추가하기전에
-                    /*dday 계산해주기
-                     dday바꿔주는 부분
-                     받은 dday 형식은 string이므로 이걸 date 형식으로 바꿔줌*/
-                    var datechange = LocalDate.parse(dialog_dday_string, DateTimeFormatter.ISO_DATE)
-                    var localdate = LocalDate.now()
-                    var period = datechange.toEpochDay() - localdate.toEpochDay()
-                    var cal_dday = period.toString() //dday 계산*/
-                    var goal_id= -1; //일단 -1로 넣어두기
-
-                    // 카테고리 리스트에 아이템 추가
-                    var newGoalItem =
-                        Goal_list_data(
-                            dialog_goalName_string,
-                            cal_dday,
-                            goal_id
-                        )
-                    goalList.add(newGoalItem)
-                    // 어댑터에 데이터변경사항 알리기
-
-                    //goal_list_recyclerview.adapter?.notifyDataSetChanged()
-                    goal_list_recyclerview.adapter?.notifyDataSetChanged()
-
-                }
-                .setNegativeButton("취소") { dialogInterface, i ->
-                    /*취소하면 실행해줄 거 없음*/
-                }
-            add_goal_dialogBuilder.show()
-        }
-
-        /* 카테고리 리스트 생성 */
-        //어떤 데이터(ArrayList)와 어떤 RecylcerView를 쓸 것인지 설정한다.
-        val goal_list_recyclerview = view.findViewById<RecyclerView>(R.id.goal_list_recyclerview)
-        goal_list_recyclerview.adapter = goalListAdapter
-        /* 추가로, ListViewAdapter와는 다르게, RecylcerView Adapter에서는 레이아웃 매니저를 설정해주어야 한다.
-        LayoutManager는 RecyclerView의 각 item들을 배치하고, item이 더 이상 보이지 않을 때 재사용할 것인지
-        결정하는 역할을 한다. item을 재사용할 때, LayoutManager 사용을 통해 불필요한 findViewById를 수행하지 않아도 되고, 앱 성능을 향상시킬 수 있다.
-        기본적으로 안드로이드에서 3가지의 LayoutManager 라이브러리를 지원한다.
-        - LinearLayoutManager
-        - GridLayoutManager
-        - StaggeredGridLayoutManager
-        이 외에도 사용자가 추상 클래스를 확장하여 임의의 레이아웃을 지정할 수도 있다.
-        LinearLayoutManager는 RecylcerView를 불러올 액티비티에 LayoutManager를 추가한다.*/
-        val goal_list_linearLayoutManager = LinearLayoutManager(view.context)
-        goal_list_recyclerview.layoutManager = goal_list_linearLayoutManager
-        /* recyclerView에 setHasFixedSize 옵션에 true값을 준다.
-        왜냐하면 item이 추가되거나 삭제될 때 RecylcerView의 크기가 변경될 수도 있고, 그렇게 되면 계층 구조의
-        다른 View 크기가 변경될 가능성이 있기 때문. item이 자주 추가되거나 삭제되면 오류가 날 수도 있음. */
-        //goal_list_recyclerview.setHasFixedSize(true)
-        // db에서 카테고리 데이터 가져오기
-        getGoalList_from_DB("search")
-       // if(itemcnt > 0) goal_list_recyclerview.adapter?.notifyDataSetChanged()
+        todayDetailedWorkPieChart = view.findViewById(R.id.home_today_detailedWork_piechart)
 
         return view
     }
 
-
-    // 카테고리 데이터 db 추가
-    fun add_goalData_to_DB(user_id: String, goal_name: String, dday: String) {
-        // url 만들기
-        val url = "http://10.0.2.2/insert.php"
-        // 데이터를 담아 보낼 바디 만들기
-        val requestBody: RequestBody = FormBody.Builder()
-            .add("user_id",user_id) // user_id 일단 임의로 1으로 저장
-            .add("goal_name",goal_name)
-            .add("dday",dday)
-            .build()
-        // okhttp request를 만든다.
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .build()
-        // 클라이언트 생성
-        val client = OkHttpClient()
-        // 요청 전송
-        client.newCall(request).enqueue(object : Callback {
-            override fun onResponse(call: Call, response: Response) {
-                Log.d("요청", "요청 하이")
-            }
-
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d("요청", "요청 그만")
-            }
-        })
-    }
-
-    // db에서 php로 데이터 가져오기 (+userID 체크 추가)
-    fun getGoalList_from_DB(phpName: String) {
-        // url 만들기
-        val url = "http://10.0.2.2/" + phpName + ".php"
-        // POST로 보낼 데이터 설정
-        // 데이터를 담아 보낼 바디 만들기
-        val requestBody: RequestBody = FormBody.Builder()
-            .add("user_id", userID) // user_id 일단 임의로 1 저장
-            .build()
-        // okhttp request를 만든다.
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .build()
-        // 클라이언트 생성
-        val client = OkHttpClient()
-        // 요청 전송
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("요청 ", e.toString())
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                var data = response?.body?.string().toString()
-                var result_array: JSONArray = JSONArray(data)
-                var jsonobjCnt = result_array.length() - 1
-                if (jsonobjCnt >= 0){
-                    goalList.removeAll(goalList)
-                    for (i in 0..jsonobjCnt) {
-                        // 목표 이름
-                        var goalName = result_array.getJSONObject(i).getString("goal_name").toString()
-                        var dday = result_array.getJSONObject(i).getString("dday").toString()
-                        var goal_id = result_array.getJSONObject(i).getString("goal_id").toInt()
-                        /*if (d_day == "" && goalName == ""){
-                            d_day = "입력해야해요^^"
-                            goalName = "목표가 없어요"
-                        }
-                        else if (d_day == "" && goalName != ""){
-                            d_day = "dday가 비었어요"
-                        }*/
-                        //if (dday =="")
-                        //dday = "2020-01-01"
-                        /*dday 계산해주기
-                        dday바꿔주는 부분
-                        받은 dday 형식은 string이므로 이걸 date 형식으로 바꿔줌*/
-                        var datechange = LocalDate.parse(dday, DateTimeFormatter.ISO_DATE)
-                        var localdate = LocalDate.now()
-                        var period = datechange.toEpochDay() - localdate.toEpochDay()
-                        var cal_dday = period.toString() //dday 계산 */
-                        /* 목표 리스트에 아이템 추가 */
-                        var newGoalItem =
-                            Goal_list_data(
-                                goalName,
-                                cal_dday,
-                                goal_id
-                            )
-                        goalList.add(newGoalItem)
-                    }
-                    // 백그라운드에서 돌기 때문에 메인쓰레드로 ui에 접근할 수 있도록 해줘야 한다.
-                    getActivity()!!.runOnUiThread {
-                        // 어댑터에 데이터변경사항 알리기
-                        itemcnt = goalListAdapter!!.getItemCount()
-                        goal_list_recyclerview.adapter?.notifyDataSetChanged()
-                        // goallist에 아이템이 하나도 없을 경우 안내메시지 view에 출력
-                        Log.d("요청 ", itemcnt.toString())
-
-                        if (itemcnt <= 0) {
-                            scheduling_goal_list_has_no_item_msg.text = "아직 목표가 없습니다. \n목표를 추가해보시죠!"
-                            scheduling_goal_list_has_no_item_msg.visibility = View.VISIBLE
-                        } else {
-                            scheduling_goal_list_has_no_item_msg.visibility = View.GONE
-                        }
-                    }
-                }
-
-            }
-        })
-
-    }
-
-
-        /* 프래그먼트 버튼에서 프래그먼트로 연결하는 코드
-        val home_add_goal = view.findViewById<Button>(R.id.home_add_goal)
-        home_add_goal.setOnClickListener {
-            val fragment = test_scheduling() // Fragment 생성
-            val fm = fragmentManager
-            val fmt = fm?.beginTransaction()
-            fmt?.replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
-        }
-         */
-
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        // 클릭 이벤트 리스너 붙이기
+        setOnClickedListener()
+        todayDetailListrecyclerview!!.adapter = todayDetailListAdapter
+        todayDetailListrecyclerview!!.layoutManager = todayDetailListLinearLayoutManager
+        todayDetailListrecyclerview!!.setHasFixedSize(true)
+        getTodayDetailResult = httpConn.get_todayDetailData()
+        if (getTodayDetailResult != null){
+            update_todayDetailList_and_pieChart(getTodayDetailResult)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+
+    override fun onDetach() {
+        super.onDetach()
+        activity = null
+    }
+
+
+    private fun setOnClickedListener() {
+        todayDetailCreateBtn!!.setOnClickListener {
+            show_createTodayDetailDialog()
+        }
+    }
+
+    // todo리스트 추가 다이얼로그 띄우는 함수
+    private fun show_createTodayDetailDialog(){
+        var dialog: DialogAddTodayDetailedWork = DialogAddTodayDetailedWork()
+        this.fragmentManager!!.beginTransaction()
+            .replace(R.id.content, dialog)
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -300,6 +152,62 @@ class Home : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    fun update_todayDetailList_and_pieChart(resultData: String?) {
+        var doneWorkCount: Int = 0
+        if (resultData == "실패"){
+            // 일단 보류. 딱히 할게 없음
+        } else {
+            var result_array: JSONArray = JSONArray(resultData)
+            var jsonobj_index = result_array.length() - 1
+            // db에서 가져온 데이터가 0 이상일 때만 카테고리 리스트 한번 리셋하고 리스트 업데이트
+            if (jsonobj_index >= 0){
+                todayDetailList.removeAll(todayDetailList)
+                for (i in 0..jsonobj_index){
+                    var todayDetailName = result_array.getJSONObject(i).getString("detail_name").toString()
+                    var todayDetailDone = result_array.getJSONObject(i).getString("done").toInt()
+                    var todayDetailDate = result_array.getJSONObject(i).getString("date").toString()
+                    if (todayDetailDone == 1){
+                        doneWorkCount++
+                        Log.d("응답", doneWorkCount.toString())
+                    }
+                    /* 카테고리 리스트에 아이템 추가 */
+                    var newDetailItem =
+                        Detail_list_data(
+                            todayDetailName,
+                            todayDetailDate,
+                            todayDetailDone
+                        )
+                    todayDetailList.add(newDetailItem)
+                }
+                // 백그라운드에서 돌기 때문에 메인쓰레드로 ui에 접근할 수 있도록 해줘야 한다.
+                activity!!.runOnUiThread {
+                    // 어댑터에 데이터변경사항 알리기
+                    todayDetailListrecyclerview!!.adapter?.notifyDataSetChanged()
+                }
+            }
+            // 파이 차트 갱신
+            var done_rate = ( doneWorkCount.toFloat() / result_array.length() ) * 100
+            Log.d("응답", done_rate.toString())
+            changeTodayPieChart(done_rate)
+        }
+
+    }
+
+    fun changeTodayPieChart(doneRate: Float){
+        Log.d("파이 차트 갱신 응답", doneRate.toString())
+        if (pieData.size > 0){
+            pieData.removeAll(pieData)
+        }
+        // 오늘 할일 관련 달성률 데이터 (list에 들어가는 데이터 값은 두가지 달성한거, 달성하지 못한거)
+        pieData.add(SliceValue(doneRate, Color.parseColor("#83cac8")))
+        pieData.add(SliceValue(100 - doneRate,Color.parseColor("#e0e0e0") ))
+
+        pieChartData = PieChartData(pieData)
+        pieChartData!!.setHasCenterCircle(true).setCenterText1(doneRate.toInt().toString())
+        todayDetailedWorkPieChart!!.pieChartData = pieChartData
     }
 
 

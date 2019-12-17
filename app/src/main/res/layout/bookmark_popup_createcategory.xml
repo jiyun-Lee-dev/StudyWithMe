@@ -8,6 +8,7 @@
     android:gravity="center">
 
     <TextView
+        android:fontFamily="@font/nanum2"
         android:id="@+id/popupTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
         android:textSize="20sp"
         android:textStyle="bold" />
         <EditText
+            android:fontFamily="@font/nanum2"
             android:id="@+id/bookmark_categoryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
             android:privateImeOptions="defaultInputted=korean"/>
 
     <Spinner
+        android:fontFamily="@font/nanum2"
         android:id="@+id/bookmark_detailedWorkList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,6 +55,7 @@
         android:weightSum="10">
 
         <Button
+            android:fontFamily="@font/nanum2"
             android:id="@+id/category_dialog_positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +64,7 @@
             android:text="확인" />
 
         <Button
+            android:fontFamily="@font/nanum2"
             android:id="@+id/category_dialog_negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

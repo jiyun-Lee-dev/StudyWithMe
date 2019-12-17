@@ -6,6 +6,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -30,6 +31,7 @@ class Following : Fragment() {
     var accoutid= App.prefs.myUserIdData
     val followList = mutableListOf<Follow>()
     var mContext: Context? = null
+    var rv_follow_list: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,7 @@ class Following : Fragment() {
         var itemcnt = 0
 
         mContext = view.context
+        rv_follow_list = view.findViewById(R.id.rv_follow_list) as RecyclerView
 
         setHasOptionsMenu(true)
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)

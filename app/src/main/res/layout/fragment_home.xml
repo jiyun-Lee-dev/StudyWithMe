@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.Home">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".fragment.Home">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:fontFamily="@font/nanum2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="오늘 나의 달성률"
+                android:layout_marginLeft="10dp"
+                android:textColor="#24466B "
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/home_today_detailedWork_piechart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="6">
+            android:layout_weight="4">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,145 +48,48 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:fontFamily="@font/nanum2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
                         android:text="Today"
-                        android:textSize="30dp"
+                        android:textSize="27dp"
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/home_add_todo"
+                        android:fontFamily="@font/nanum2"
+                        android:id="@+id/home_create_today_detailedWork_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/ggboard_btn_shape"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/whbutton"
                         android:text="일정 추가"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
-                <GridLayout
-                    android:padding="25dp"
+                <TextView
+                    android:fontFamily="@font/nanum2"
+                    android:id="@+id/home_today_list_has_no_item_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:columnCount="2"
-                    android:rowCount="3">
+                    android:padding="20dp"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-                    <CheckBox
-                        android:id="@+id/checkBox1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-                    <CheckBox
-                        android:id="@+id/checkBox2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-
-                    <EditText
-                        android:id="@+id/editText1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="토익 문제집 55-98p 풀기" />
-                    <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="LC ch2 풀기" />
-                    <EditText
-                        android:id="@+id/editText3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="시종설 DB 불러오기" />
-                </GridLayout>
-
-            </LinearLayout>
-
-
-            <!--            <View style="@style/Divider"/>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/home_today_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/home_goal_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:text="우디부디1의 목표 목록"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/home_add_goal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="목표 추가"
-                        android:textStyle="bold"
-                        android:background="@drawable/ggboard_btn_shape"
-                        android:textColor="#ffffff"/>
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/scheduling_goal_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="20dp">
-
-                    <TextView
-                        android:id="@+id/scheduling_goal_list_has_no_item_msg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/goal_list_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="8dp"/>
-
-
-                </LinearLayout>
-
-
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"/>
             </LinearLayout>
-
-
 
         </LinearLayout>
 
