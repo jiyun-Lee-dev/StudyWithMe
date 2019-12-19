@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -64,6 +65,7 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
                 .build()
             val client_hashtag = OkHttpClient()
             var size_post=0
+
             client_hashtag.newCall(request_board).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
                     var str_response_post = response.body!!.string()
@@ -121,7 +123,7 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
             _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
 
-            adapter_s = BoardRecycle_Adapter(view.context,list_tagpost,this)
+            adapter_s = BoardRecycle_Adapter(view.context,list_tagpost,this@TagSearchPost)
             _recyclerView.adapter=adapter_s
 
         }
@@ -139,7 +141,7 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
         return view
     }
 
-    override fun onItemSelected(adapterview: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemSelected(adapterview: AdapterView<*>?, view: View?, position: Int, id: Long) {
         // use position to know the selected item
         // goal_text.text="Selected:"+list_of_goal[position]
     }
@@ -252,6 +254,17 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
             }
         })
         return tag_list
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            //뒤로가기 버튼 클릭 시
+            android.R.id.home -> {
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

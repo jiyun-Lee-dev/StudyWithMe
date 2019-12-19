@@ -1,9 +1,6 @@
-package com.example.studywithme.fragment
+package com.example.studywithme.Profile
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
@@ -16,6 +13,7 @@ import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.data.Follow
+import com.example.studywithme.fragment.Profile
 import kotlinx.android.synthetic.main.profile_following_item.view.*
 import okhttp3.*
 import java.io.IOException
@@ -63,7 +61,6 @@ class FollowAdapter(val context: Context, val items: MutableList<Follow>, val to
                 client.newCall(request).enqueue(object : Callback {
                     override fun onResponse(call: Call, response: Response) {
                         check = response.body!!.string()
-                        Log.d("checkkk",check)
 
                         if (check.equals("follow")) {
                             follow_button.text = "팔로우 취소"
@@ -112,7 +109,6 @@ class FollowAdapter(val context: Context, val items: MutableList<Follow>, val to
             val client = OkHttpClient()
             client.newCall(request).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
-                    //result = response.body!!.string()
                 }
                 override fun onFailure(call: Call, e: IOException) {
                     Log.e("요청 ", e.toString())

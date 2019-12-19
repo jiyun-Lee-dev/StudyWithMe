@@ -32,7 +32,7 @@ class Write_post : Fragment(), AdapterView.OnItemSelectedListener  {
     var taglist=ArrayList<String>()
     var stored_taglist=ArrayList<String>()
     var taglist_str:String=""
-    val myname= App.prefs.myUserNameData
+    val myname= App.prefs.myUserIdData
     var goalOfpost=""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

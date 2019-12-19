@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.Following">
+    tools:context=".Profile.Following">
 
     <TextView
         android:id="@+id/follow_user_list_has_no_item_msg"

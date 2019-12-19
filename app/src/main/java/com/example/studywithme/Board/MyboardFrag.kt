@@ -2,34 +2,21 @@ package com.example.studywithme.Board
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
-import android.text.SpannableString
 import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.*
 import android.widget.*
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import com.example.studywithme.data.App
-import kotlinx.android.synthetic.*
-
-
 import okhttp3.*
-import okhttp3.internal.notify
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import kotlin.collections.ArrayList
 
 
@@ -37,13 +24,13 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
 
     var list_of_goal = ArrayList<String>()
     var list_post= arrayListOf<BoardData>()
-    private lateinit var adapter_s:BoardRecycle_Adapter
+    var adapter_s:BoardRecycle_Adapter? = null
     internal var textlength=0
-    private lateinit var _recyclerView: RecyclerView
+    var _recyclerView: RecyclerView? = null
     var boardSearchList= arrayListOf<BoardData>()
     var activity: MainActivity? = null
-
-    companion object{
+    companion
+    object{
         private const val FRAGMENT_TAG = "custom_view"
         fun newInstance()=MyboardFrag()
 
@@ -65,7 +52,7 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_myboard, container, false)
 
-        val myname= App.prefs.myUserNameData
+        val myname= App.prefs.myUserIdData
         //spinner
         list_of_goal.add("전체 선택")
         list_of_goal.add("기타")
@@ -113,6 +100,8 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
         spinner?.adapter = items
 
         //게시글 list
+
+        boardSearchList.clear()
 
         var size_post=0
         val url_post = "http://203.245.10.33:8888/getMyPost.php"
@@ -166,11 +155,11 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
         })
 
         _recyclerView=view.findViewById(R.id.mrecyclerView)
-        _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+        _recyclerView!!.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
 
-        adapter_s = BoardRecycle_Adapter(view.context,list_post,this)
-        _recyclerView.adapter=adapter_s
+        adapter_s = BoardRecycle_Adapter(view.context,list_post,this@MyboardFrag)
+        _recyclerView!!.adapter=adapter_s
 
 
         //글작성 버튼
@@ -197,9 +186,9 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
                     if(list_post[i].goalID.toString().contains(str_sequence)||(list_post[i].postContent.contains(str_sequence)))
                         boardSearchList.add(list_post[i])
                 }
-                adapter_s= BoardRecycle_Adapter(view.context,boardSearchList, MyboardFrag())
-                _recyclerView.adapter=adapter_s
-                _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+                adapter_s= BoardRecycle_Adapter(view.context,boardSearchList, this@MyboardFrag)
+                _recyclerView!!.adapter=adapter_s
+                _recyclerView!!.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
             }
 
 
@@ -211,7 +200,7 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
     }
 
 
-    override fun onItemSelected(adapterview: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemSelected(adapterview: AdapterView<*>?, view: View?, position: Int, id: Long) {
         // use position to know the selected item
         // goal_text.text="Selected:"+list_of_goal[position]
     }

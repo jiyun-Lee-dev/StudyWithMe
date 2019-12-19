@@ -59,7 +59,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/follow_btn_shape"
-                android:text="팔로잉"
+                android:text="팔로우"
                 android:textColor="#ffffff" />
 
     </RelativeLayout>

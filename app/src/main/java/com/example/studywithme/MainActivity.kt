@@ -147,10 +147,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun fragmentChange_for_adapter(frag: Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.content, frag).commit()
-    }
-
     fun fromAdaptertoFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
     }

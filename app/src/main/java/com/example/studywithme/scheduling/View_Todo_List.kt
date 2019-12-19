@@ -329,9 +329,8 @@ class View_Todo_List : Fragment() {
         when(item?.itemId){
             //뒤로가기 버튼 클릭 시
             android.R.id.home -> {
-                fragmentManager!!.beginTransaction()
-                    .replace(R.id.content, Calendar())
-                    .commitAllowingStateLoss()
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
             }
             R.id.search -> {
 
