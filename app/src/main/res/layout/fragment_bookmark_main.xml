@@ -22,6 +22,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
                 <TextView
+                    android:fontFamily="@font/nanum2"
                     android:id="@+id/bookmark_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
                 android:gravity="right"
                 tools:ignore="MissingConstraints,RtlHardcoded">
                 <Button
+                    android:fontFamily="@font/nanum2"
                     android:id="@+id/bookmark_category_createBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,6 +67,7 @@
                 android:orientation="vertical"
                 tools:ignore="MissingContents">
                 <TextView
+                    android:fontFamily="@font/nanum2"
                     android:id="@+id/bookmark_category_list_has_no_item_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

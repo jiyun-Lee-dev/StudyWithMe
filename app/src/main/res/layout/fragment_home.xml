@@ -1,170 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.Home">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="6">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:id="@+id/home_today_done_rate_title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/home_today_done_rate_layout"
+                    app:layout_constraintStart_toStartOf="parent">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
-                        android:text="Today"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/home_add_todo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/ggboard_btn_shape"
-                        android:text="일정 추가"
-                        android:textColor="#ffffff"
+                        android:fontFamily="@font/nanum2"
+                        android:text="오늘 나의 달성률"
+                        android:textColor="#24466B "
+                        android:textSize="20dp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
-                <GridLayout
-                    android:padding="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:columnCount="2"
-                    android:rowCount="3">
-
-                    <CheckBox
-                        android:id="@+id/checkBox1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-                    <CheckBox
-                        android:id="@+id/checkBox2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"/>
-
-                    <EditText
-                        android:id="@+id/editText1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="토익 문제집 55-98p 풀기" />
-                    <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="LC ch2 풀기" />
-                    <EditText
-                        android:id="@+id/editText3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="시종설 DB 불러오기" />
-                </GridLayout>
-
-            </LinearLayout>
-
-
-            <!--            <View style="@style/Divider"/>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:text="우디부디1의 목표 목록"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/home_add_goal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="목표 추가"
-                        android:textStyle="bold"
-                        android:background="@drawable/ggboard_btn_shape"
-                        android:textColor="#ffffff"/>
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/scheduling_goal_layout"
+                    android:id="@+id/home_today_done_rate_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="20dp">
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@+id/home_today_done_rate_title"
+                    app:layout_constraintEnd_toStartOf="@+id/home_today_list_entire_layout"
+                    app:layout_constraintBottom_toBottomOf="@+id/home_today_done_rate_title"
+                    app:layout_constraintTop_toTopOf="@id/home_today_list_entire_layout">
 
                     <TextView
-                        android:id="@+id/scheduling_goal_list_has_no_item_msg"
-                        android:layout_width="match_parent"
+                        android:id="@+id/home_today_piechart_has_no_item_msg"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="20dp"
+                        android:fontFamily="@font/nanum2"
+                        android:text="아직 등록된 할일이 없습니다!"
+                        android:textAlignment="center"
                         android:textColor="#000000"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/goal_list_recyclerview"
+
+                    <lecho.lib.hellocharts.view.PieChartView
+                        android:id="@+id/home_today_detailedWork_piechart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/home_today_list_entire_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_today_done_rate_layout">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/home_detail_list_tab"
+                        android:layout_width="180dp"
+                        android:layout_height="40dp"
+                        app:tabIndicatorColor="@color/mainColor">
+                    </android.support.design.widget.TabLayout>
+
+                    <Button
+                        android:id="@+id/home_create_today_detailedWork_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/whbutton"
+                        android:fontFamily="@font/nanum2"
+                        android:text="일정 추가"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/home_today_list_view_pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"/>
+                        android:layout_below="@id/home_detail_list_tab"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
+                    </android.support.v4.view.ViewPager>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-
-            </LinearLayout>
-
-
-
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

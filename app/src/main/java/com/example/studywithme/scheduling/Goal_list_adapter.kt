@@ -29,9 +29,11 @@ class Goal_list_adapter (val context: Context, val goalList: ArrayList<Goal_list
     }
     /* onCreateViewHolder에서 만든 View와 실제 입력되는 각각의 데이터를 연결한다.*/
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(goalList[position], context)
-        holder?.goalName.setOnClickListener{
-            var fragment : Fragment = com.example.studywithme.fragment.Calendar()
+        holder.bind(goalList[position], context)
+        holder.dday.visibility=View.GONE
+        holder.goal_id.visibility=View.GONE
+        holder.goalName.setOnClickListener{
+            var fragment : Fragment = com.example.studywithme.scheduling.View_Todo_List()
             var bundle: Bundle = Bundle(1)
             bundle.putString("goal_name",holder?.goalName.text.toString())
             bundle.putString("d_day",holder?.dday.text.toString())
@@ -40,8 +42,6 @@ class Goal_list_adapter (val context: Context, val goalList: ArrayList<Goal_list
             fragment.arguments = bundle
             //링크 프래그먼트로 전환
             topFragment.fragmentManager!!.beginTransaction().replace(R.id.content, fragment).addToBackStack(null).commitAllowingStateLoss()
-
-
         }
     }
     /* RecyclerView로 만들어지는 item의 총 개수를 반환한다.*/
@@ -54,10 +54,10 @@ class Goal_list_adapter (val context: Context, val goalList: ArrayList<Goal_list
         id를 통해 layout과 연결된다.*/
 
         //val goalItemLayout = itemView?.findViewById<LinearLayout>(R.id.goal_list_goalName)
-        val goalName = itemView?.findViewById<Button>(R.id.goal_list_goalName)
-        val dday = itemView?.findViewById<TextView>(R.id.goal_list_dDay)
-        val message = itemView?.findViewById<TextView>(R.id.goal_list_dDay_message)
-        val goal_id = itemView?.findViewById<TextView>(R.id.goal_list_id)
+        val goalName = itemView.findViewById<Button>(R.id.goal_list_goalName)
+        var dday = itemView.findViewById<TextView>(R.id.goal_list_dDay)
+        val message = itemView.findViewById<TextView>(R.id.goal_list_dDay_message)
+        var goal_id = itemView.findViewById<TextView>(R.id.goal_list_id)
 
 
         /* bind 함수는 ViewHolder와 클래스의 각 변수를 연동하는 역할을 한다. Overrdie할 함수에서 사용하게 된다.
