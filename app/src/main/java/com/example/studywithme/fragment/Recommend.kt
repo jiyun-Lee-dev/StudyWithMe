@@ -118,8 +118,7 @@ class Recommend : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
-        toolbarTitle.text = "Recommend"
-
+        toolbarTitle.text = "추천"
         chooseGoal(chosenGoal)
     }
 

@@ -14,6 +14,7 @@ import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import okhttp3.*
+import okhttp3.internal.notify
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -24,9 +25,11 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
 
     var list_of_goal = ArrayList<String>()
     var list_post= arrayListOf<BoardData>()
+
     var adapter_s:BoardRecycle_Adapter? = null
     internal var textlength=0
     var _recyclerView: RecyclerView? = null
+
     var boardSearchList= arrayListOf<BoardData>()
     var activity: MainActivity? = null
     companion
@@ -34,8 +37,8 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
         private const val FRAGMENT_TAG = "custom_view"
         fun newInstance()=MyboardFrag()
 
-    }
 
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -155,12 +158,12 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
         })
 
         _recyclerView=view.findViewById(R.id.mrecyclerView)
+
         _recyclerView!!.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
 
         adapter_s = BoardRecycle_Adapter(view.context,list_post,this@MyboardFrag)
         _recyclerView!!.adapter=adapter_s
-
 
         //글작성 버튼
         val write_button = view.findViewById<Button>(R.id.write_button)
@@ -186,9 +189,11 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
                     if(list_post[i].goalID.toString().contains(str_sequence)||(list_post[i].postContent.contains(str_sequence)))
                         boardSearchList.add(list_post[i])
                 }
+
                 adapter_s= BoardRecycle_Adapter(view.context,boardSearchList, this@MyboardFrag)
                 _recyclerView!!.adapter=adapter_s
                 _recyclerView!!.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+
             }
 
 
@@ -200,7 +205,9 @@ class MyboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
     }
 
 
+
     override fun onItemSelected(adapterview: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
         // use position to know the selected item
         // goal_text.text="Selected:"+list_of_goal[position]
     }

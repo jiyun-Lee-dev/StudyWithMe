@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.os.Parcelable
 
-
 class RecommendAdapter(private val fm: FragmentManager, val goal: String) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {

@@ -1,5 +1,6 @@
 package com.example.studywithme.DialogFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -21,6 +22,7 @@ import java.util.*
 class DialogAddTodayDetailedWork: DialogFragment() {
 
     private var parent_fragment: Fragment? = null
+    var fragmentContext: Context? = null
     var args: Bundle? = null
     var todayDate: String = ""
     var detailedWorkName: EditText? = null
@@ -51,6 +53,7 @@ class DialogAddTodayDetailedWork: DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view = inflater.inflate(R.layout.home_popup_create_detailed_work, container, false)
+        fragmentContext = container!!.context
         detailedWorkName = view.findViewById(R.id.detailed_work)
         detailedWorkYear = view.findViewById(R.id.detailed_work_date_year)
         detailedWorkMonth = view.findViewById(R.id.detailed_work_date_month)
@@ -76,7 +79,10 @@ class DialogAddTodayDetailedWork: DialogFragment() {
             Log.d("오늘할일 추가 다이얼로그 응답", detailedWorkName!!.text.toString())
             Log.d("오늘할일 추가 다이얼로그 응답", detailedWorkDate_string)
             /* db에 데이터 추가 */
-            httpConn.add_detailedWorkData(detailedWorkName!!.text.toString(), detailedWorkDate_string)
+            var result_temp = httpConn.add_detailedWorkData(detailedWorkName!!.text.toString(), detailedWorkDate_string).toString()
+            if (result_temp.contains("0")){
+                Toast.makeText(fragmentContext, "이미 오늘 등록된 할일입니다!", Toast.LENGTH_LONG).show()
+            }
             fragmentManager!!.beginTransaction().remove(this).commitAllowingStateLoss()
             fragmentManager!!.popBackStack()
         }
@@ -153,13 +159,13 @@ class DialogAddTodayDetailedWork: DialogFragment() {
         var temp_year = temp.format(DateTimeFormatter.ofPattern("yyyy"))
         var temp_month = temp.format(DateTimeFormatter.ofPattern("MM"))
         if (month != "") month_string = month
-            if (temp_year == detailedWorkYear_string){
-                if (temp_month.toInt() <= month_string.toInt() ){
-                    temp_result = true
-                }
-            } else {
+        if (temp_year == detailedWorkYear_string){
+            if (temp_month.toInt() <= month_string.toInt() ){
                 temp_result = true
             }
+        } else {
+            temp_result = true
+        }
         return month != "" && (month_string.toInt() in 1..12) && temp_result
     }
 
@@ -195,4 +201,3 @@ class DialogAddTodayDetailedWork: DialogFragment() {
 
 
 }
-

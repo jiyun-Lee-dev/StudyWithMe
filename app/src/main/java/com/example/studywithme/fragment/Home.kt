@@ -1,53 +1,29 @@
 package com.example.studywithme.fragment
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.content.res.AssetManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
-import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import com.example.studywithme.DialogFragment.DialogAddCategory
 import com.example.studywithme.DialogFragment.DialogAddTodayDetailedWork
 import com.example.studywithme.HttpConnection
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.bookmark.BookmarkActivity_category
 import com.example.studywithme.data.App
-import com.example.studywithme.scheduling.*
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.utils.ColorTemplate
-import io.reactivex.internal.util.BackpressureHelper.add
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.example.studywithme.home.*
+import com.jakewharton.rxbinding2.support.design.widget.select
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import lecho.lib.hellocharts.view.PieChartView
-import okhttp3.*
-import okio.Utf8
+import okhttp3.internal.notifyAll
 import org.json.JSONArray
-import org.w3c.dom.Text
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.lang.Exception
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 class Home : Fragment() {
@@ -59,12 +35,11 @@ class Home : Fragment() {
     var pieData = arrayListOf<SliceValue>()
     var pieChartData: PieChartData? = null
     var todayDetailCreateBtn: Button? = null
-    var todayDetailListAdapter: Detail_list_adapter? = null
     var todayDetailList = arrayListOf<Detail_list_data>()
-    var todayDetailListrecyclerview: RecyclerView? = null
-    var todayDetailListLinearLayoutManager: LinearLayoutManager? = null
     var getTodayDetailResult: String? = null
     var httpConn: HttpConnection = HttpConnection()
+    var homeViewPager: ViewPager? = null
+    var home_tabLayout: TabLayout? = null
 
 
     override fun onAttach(context: Context) {
@@ -88,12 +63,31 @@ class Home : Fragment() {
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "StudyWithMe"
 
-        todayDetailListAdapter = Detail_list_adapter(view.context, todayDetailList, this)
-        todayDetailListrecyclerview = view!!.findViewById(R.id.home_today_list)
-        todayDetailListLinearLayoutManager = LinearLayoutManager(view.context)
         todayDetailCreateBtn = view.findViewById<Button>(R.id.home_create_today_detailedWork_btn)
-
         todayDetailedWorkPieChart = view.findViewById(R.id.home_today_detailedWork_piechart)
+
+        homeViewPager = view.findViewById(R.id.home_today_list_view_pager)
+        home_tabLayout = view.findViewById(R.id.home_detail_list_tab)
+
+        home_tabLayout!!.addTab(home_tabLayout!!.newTab().setText("Today"))
+        home_tabLayout!!.addTab(home_tabLayout!!.newTab().setText("All"))
+        Log.d("탬 응답1", home_tabLayout!!.selectedTabPosition.toString())
+        home_tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
+
+        // today 또는 all 할일 리스트 뷰페이저
+        val home_view_pager_adapter = Home_view_pager_adapter(childFragmentManager)
+        homeViewPager!!.adapter = home_view_pager_adapter
+        homeViewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tabLayout))
+        home_tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(p0: TabLayout.Tab) {
+                homeViewPager!!.adapter?.notifyDataSetChanged()
+                homeViewPager!!.currentItem = p0.position
+            }
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+        })
 
         return view
     }
@@ -102,13 +96,12 @@ class Home : Fragment() {
         super.onActivityCreated(savedInstanceState)
         // 클릭 이벤트 리스너 붙이기
         setOnClickedListener()
-        todayDetailListrecyclerview!!.adapter = todayDetailListAdapter
-        todayDetailListrecyclerview!!.layoutManager = todayDetailListLinearLayoutManager
-        todayDetailListrecyclerview!!.setHasFixedSize(true)
+
         getTodayDetailResult = httpConn.get_todayDetailData()
         if (getTodayDetailResult != null){
-            update_todayDetailList_and_pieChart(getTodayDetailResult)
+            update_today_pieChart(getTodayDetailResult)
         }
+
     }
 
 
@@ -155,7 +148,7 @@ class Home : Fragment() {
     }
 
 
-    fun update_todayDetailList_and_pieChart(resultData: String?) {
+    fun update_today_pieChart(resultData: String?) {
         var doneWorkCount: Int = 0
         if (resultData == "실패"){
             // 일단 보류. 딱히 할게 없음
@@ -166,26 +159,11 @@ class Home : Fragment() {
             if (jsonobj_index >= 0){
                 todayDetailList.removeAll(todayDetailList)
                 for (i in 0..jsonobj_index){
-                    var todayDetailName = result_array.getJSONObject(i).getString("detail_name").toString()
                     var todayDetailDone = result_array.getJSONObject(i).getString("done").toInt()
-                    var todayDetailDate = result_array.getJSONObject(i).getString("date").toString()
                     if (todayDetailDone == 1){
                         doneWorkCount++
                         Log.d("응답", doneWorkCount.toString())
                     }
-                    /* 카테고리 리스트에 아이템 추가 */
-                    var newDetailItem =
-                        Detail_list_data(
-                            todayDetailName,
-                            todayDetailDate,
-                            todayDetailDone
-                        )
-                    todayDetailList.add(newDetailItem)
-                }
-                // 백그라운드에서 돌기 때문에 메인쓰레드로 ui에 접근할 수 있도록 해줘야 한다.
-                activity!!.runOnUiThread {
-                    // 어댑터에 데이터변경사항 알리기
-                    todayDetailListrecyclerview!!.adapter?.notifyDataSetChanged()
                 }
             }
             // 파이 차트 갱신

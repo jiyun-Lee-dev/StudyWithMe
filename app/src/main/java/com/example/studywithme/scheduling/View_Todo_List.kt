@@ -17,15 +17,10 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TextView
-import com.example.studywithme.Board.WholeboardFrag
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.fragment.Calendar
-
-import com.example.studywithme.scheduling.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_calendar_view_todo_list.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
@@ -39,9 +34,7 @@ class View_Todo_List : Fragment() {
     var todoList = arrayListOf<Todo_list_data>()
     var itemcnt1 = 0
     var todoListAdapter: Todo_list_adapter? = null
-    // test용 사용자 아이디는 0으로 임시 설정했음
-    //var userID = App.prefs.myUserIdData
-    var userID = "1"
+    var userID = App.prefs.myUserIdData
     val done = 1 //일단 1으로 설정
     var Goal_id = 0
 
@@ -121,6 +114,7 @@ class View_Todo_List : Fragment() {
                         dialog_datepick.month + 1,
                         dialog_datepick.dayOfMonth
                     )
+
 
                     //var dialog_detailedWork_string = dialog_detailedWork_spinner.selectedItem.toString()
                     /* db에 데이터 추가 */
@@ -255,7 +249,7 @@ class View_Todo_List : Fragment() {
         // POST로 보낼 데이터 설정
         // 데이터를 담아 보낼 바디 만들기
         val requestBody: RequestBody = FormBody.Builder()
-            .add("user_id", userID) // user_id 일단 임의로 1 저장
+            .add("user_id", userID)
             .add("goal_id",Goal_id.toString())
             .build()
         // okhttp request를 만든다.

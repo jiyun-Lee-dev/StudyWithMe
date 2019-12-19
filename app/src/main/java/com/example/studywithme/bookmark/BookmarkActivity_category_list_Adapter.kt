@@ -9,10 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
 import com.example.studywithme.data.App
@@ -26,8 +23,12 @@ import kotlinx.android.synthetic.main.bookmark_main.*
 /* 어느 요소를 어느 View에 넣을 것인지 연결해주는 것이 Adapter의 역할이다.
 recyclerview의 어댑터는 RecyclerView.Adapter를 extend해야 함.
 근데 이 어댑터에서는 ViewHolder라는 것이 필요하다. */
-class BookmarkActivity_category_list_Adapter (val context: Context, val categoryList: ArrayList<BookmarkActivity_category>, val topFragment: Fragment) :
-    RecyclerView.Adapter<BookmarkActivity_category_list_Adapter.Holder>() {
+class BookmarkActivity_category_list_Adapter (val context: Context, var categoryList: ArrayList<BookmarkActivity_category>, val topFragment: Fragment) :
+    RecyclerView.Adapter<BookmarkActivity_category_list_Adapter.Holder>(), Filterable {
+
+    var categoryHolder: Holder? = null
+    val unFilteredList = categoryList
+    var filteredList = categoryList
 
     /* 화면을 최초 로딩하여 만들어진 View가 없는 경우, xml파일을 inflate하여 ViewHolder를 생성한다.*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -68,18 +69,51 @@ class BookmarkActivity_category_list_Adapter (val context: Context, val category
         return categoryList.size
     }
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint.toString()
+                filteredList = if (charString.isEmpty()) {
+                    unFilteredList
+                } else {
+                    var filteringList = ArrayList<BookmarkActivity_category>()
+                    for (item in unFilteredList) {
+                        if (item.categoryName.contains(charString) || item.goalName.contains(charString)) {
+                            filteringList.add(item)
+                        }
+                    }
+                    filteringList
+                }
+                Log.d("어댑터 응답1", filteredList.toString())
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results!!.values as ArrayList<BookmarkActivity_category>
+                Log.d("어댑터 응답2", filteredList.toString())
+                categoryList = filteredList
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         /* 각 View의 이름을 정하고, findViewById를 통해 ImageView인지 TextView인지 Button인지 등 종류를 정하고
         id를 통해 layout과 연결된다.*/
-        val categoryItemLayout = itemView?.findViewById<LinearLayout>(R.id.categoryName_linearLayout)
+        val categoryItemLayout = itemView?.findViewById<LinearLayout>(R.id.bookmark_category_linearLayout)
+        val categoryItemCheckBoxLayout = itemView?.findViewById<LinearLayout>(R.id.bookmark_category_checkbox_layout)
+        val categoryItemCheckBox = itemView?.findViewById<CheckBox>(R.id.bookmark_category_checkbox)
         val categoryName = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_categoryName)
-        val detailedWork = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_detailedWork)
+        val goalName = itemView?.findViewById<TextView>(R.id.bookmark_category_list_item_goalName)
         /* bind 함수는 ViewHolder와 클래스의 각 변수를 연동하는 역할을 한다. Overrdie할 함수에서 사용하게 된다.
         쉽게 말해 이쪽 TextView엔 이 String을 넣어라, 라고 지정하는 함수라고 보면 된다.*/
         fun bind(category: BookmarkActivity_category, context: Context) {
             /*TextView와 String 데이터 연결하기*/
             categoryName?.text = category.categoryName
-            detailedWork?.text = category.detailedWork
+            goalName?.text = category.goalName
         }
     }
 }

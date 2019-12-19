@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -127,6 +128,7 @@ class UserFrag : Fragment(){
                         }
                         else if(itemcnt <= 0){
                             recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없어요."
+
                             recommend_user_list_has_no_item_msg.visibility = VISIBLE
                         }
                         else {

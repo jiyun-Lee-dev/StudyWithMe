@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -67,7 +66,11 @@ class InfoFrag : Fragment() {
         }
         else {
             recommend_info_list_has_no_item_msg.visibility = GONE
+
         }
+        Log.d("infofrag", chosenGoal)
+        query = chosenGoal
+        weburl="https://www.google.com/search?q=" + query + "&num=20"
 
         return view
     }

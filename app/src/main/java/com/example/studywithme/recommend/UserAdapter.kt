@@ -18,7 +18,6 @@ import java.io.IOException
 import com.example.studywithme.MainActivity
 import com.example.studywithme.fragment.Profile
 
-
 class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, val topFrag: Fragment): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = UserViewHolder(parent)
@@ -112,6 +111,7 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
 
             activity.fromAdaptertoFragment(fragment)
         })
+
 
 
     }

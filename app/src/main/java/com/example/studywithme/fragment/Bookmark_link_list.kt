@@ -249,7 +249,6 @@ class Bookmark_link_list: Fragment() {
                         BookmarkActivity_link(
                             link_url,
                             link_title,
-                            link_image_url,
                             link_description
                         )
                     linkDataList_array.add(newLinkItem)

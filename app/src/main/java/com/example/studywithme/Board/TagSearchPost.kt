@@ -122,8 +122,8 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
             _recyclerView=view.findViewById(R.id.mrecyclerView_tag)
             _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
-
             adapter_s = BoardRecycle_Adapter(view.context,list_tagpost,this@TagSearchPost)
+
             _recyclerView.adapter=adapter_s
 
         }
@@ -141,7 +141,9 @@ class TagSearchPost : Fragment(), AdapterView.OnItemSelectedListener{
         return view
     }
 
+
     override fun onItemSelected(adapterview: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
         // use position to know the selected item
         // goal_text.text="Selected:"+list_of_goal[position]
     }

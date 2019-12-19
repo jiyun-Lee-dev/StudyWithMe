@@ -55,6 +55,7 @@ class SelectPostFrag : Fragment(){
         //db에서 tag 받아오기
         get_tagData_from_DB(post_str)
 
+
         //text에 받아온 데이터 붙이기
         user_txt.setText(user_id_str)
         goal_txt.setText(goal_id_str)

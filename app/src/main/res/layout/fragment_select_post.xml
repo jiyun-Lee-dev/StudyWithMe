@@ -78,7 +78,9 @@
                 android:background="@drawable/txt_border"
                 android:layout_below="@+id/goal_txt"
                 android:text="contents...."
-                android:padding="10dp"/>
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"/>
+
             <TextView
                 android:fontFamily="@font/nanum2"
                 android:id="@+id/date_txt"
