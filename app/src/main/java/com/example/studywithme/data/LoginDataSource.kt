@@ -12,6 +12,7 @@ import java.lang.Exception
  */
 
 class LoginDataSource {
+
     var dataFrom_name : String = ""
     var dataFrom_id : String = ""
 
@@ -27,7 +28,7 @@ class LoginDataSource {
 
             override fun doInBackground(vararg params: Void?): String {
                 // url 만들기
-                val url="http://10.0.2.2/loginAuthenticate.php"
+                val url="http://203.245.10.33:8888/loginAuthenticate.php"
                 try {
                     // 데이터를 담아 보낼 바디 만들기
                     val requestBody : RequestBody = FormBody.Builder()
@@ -69,10 +70,12 @@ class LoginDataSource {
             App.prefs.myUserNameData = dataFrom_name
             App.prefs.myUserIdData = dataFrom_id
             App.prefs.myPasswordData = password
+
             Result.Success(authenticatedUser)
         } else {
             // 인증 실패
             Result.Error("Error logging")
+
         }
     }
 

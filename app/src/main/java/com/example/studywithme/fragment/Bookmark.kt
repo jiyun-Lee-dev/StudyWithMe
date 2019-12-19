@@ -2,6 +2,7 @@ package com.example.studywithme.fragment
 
 import android.app.AlertDialog
 import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -23,6 +24,7 @@ import okhttp3.*
 import org.json.JSONArray
 import org.w3c.dom.Text
 import java.io.IOException
+import java.util.zip.Inflater
 
 /* 리사이클러뷰와 어댑터에 대한 주석 많음*/
 class Bookmark : Fragment(){
@@ -31,7 +33,7 @@ class Bookmark : Fragment(){
     var bookmarkDialogBuilder: AlertDialog.Builder? = null
     var bookmarkCategoryList: RecyclerView? = null
     var categoryList = arrayListOf<BookmarkActivity_category>()
-    var itemcnt = 0
+    var categorylist_no_item_msg: TextView? = null
     var categoryListAdapter: BookmarkActivity_category_list_Adapter? = null
     var category_list_linearLayoutManager: LinearLayoutManager? = null
     private val userID = App.prefs.myUserIdData
@@ -41,6 +43,12 @@ class Bookmark : Fragment(){
     var args: Bundle? = null
     var sharedLinkURL: String? = null
     var existSharedLinkURL: Boolean = false
+    var fragmentContext: Context? = null
+    var isEditMode: Boolean = false
+    var deleteMenu: MenuItem? = null
+    var searchMenu: MenuItem? = null
+    var editMenu: MenuItem? = null
+    var cancelMenu: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +64,7 @@ class Bookmark : Fragment(){
     // 레이아웃을 inflate하는 곳, view 객체를 얻는 곳.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bookmark, container, false)
+        fragmentContext = container!!.context
         // 상단바 메뉴 쓰는 것으로 설정
         setHasOptionsMenu(true)
         bookmarkCategoryCreateBtn = view.findViewById<Button>(R.id.bookmark_category_createBtn)
@@ -68,6 +77,7 @@ class Bookmark : Fragment(){
         bookmarkCategoryList = view!!.findViewById<RecyclerView>(R.id.bookmark_category_list)
         /* 추가로, ListViewAdapter와는 다르게, RecylcerView Adapter에서는 레이아웃 매니저를 설정해주어야 한다.*/
         category_list_linearLayoutManager = LinearLayoutManager(view.context)
+        categorylist_no_item_msg = view.findViewById<TextView>(R.id.bookmark_category_list_has_no_item_msg)
 
         return view
     }
@@ -79,6 +89,7 @@ class Bookmark : Fragment(){
         // 상단바 이름 바꾸기
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "북마크"
+        categorylist_no_item_msg!!.text = "아직 추가된 카테고리가 없습니다."
         bookmarkCategoryList!!.adapter = categoryListAdapter
         bookmarkCategoryList!!.layoutManager = category_list_linearLayoutManager
         /* recyclerView에 setHasFixedSize 옵션에 true값을 준다.
@@ -92,7 +103,7 @@ class Bookmark : Fragment(){
             update_categoryList(getCategoryResult)
         }
         if (existSharedLinkURL){
-            Toast.makeText(activity, "링크를 추가할 카테고리를 선택해주세요!", Toast.LENGTH_LONG)
+            Toast.makeText(fragmentContext, "링크를 추가할 카테고리를 선택해주세요!", Toast.LENGTH_LONG)
         }
     }
 
@@ -121,26 +132,29 @@ class Bookmark : Fragment(){
 
     // menu에 만든 xml파일을 인플레이트 해주는 코드
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater!!.inflate(R.menu.default_menu, menu)
+        inflater!!.inflate(R.menu.bookmark_category_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        editMenu = menu?.findItem(R.id.bookmark_category_edit)
+        searchMenu = menu?.findItem(R.id.bookmark_category_search)
+        deleteMenu = menu?.findItem(R.id.bookmark_category_delete)
+        cancelMenu = menu?.findItem(R.id.bookmark_category_cancel)
         // searchView 설정
-        var searchItem = menu?.findItem(R.id.search)
+        var searchItem = menu?.findItem(R.id.bookmark_category_search)
         var searchView = searchItem?.actionView as SearchView
-
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             // 검색 입력창에 새로운 텍스트가 들어갈 때 마다 호출 - 지금은 사용 안함.
             override fun onQueryTextChange(searchInputString: String?): Boolean {
+                categoryListAdapter!!.filter.filter(searchInputString)
                 return false
             }
             // 검색어를 다 입력하고 서치 버튼을 눌렀을 때
             override fun onQueryTextSubmit(searchInputString: String?): Boolean {
-                Toast.makeText(view?.context, searchInputString + "에 대해 검색중", Toast.LENGTH_LONG).show()
-                // 여기서 검색 요청하고 데이터 받아오는 걸 처리해야 함. AsyncTask?가 뭐지 암튼 나중에 db url 주소에다가 검색해야함
+                categoryListAdapter!!.filter.filter(searchInputString)
                 return false
             }
         })
     }
-    
+
     // menu에 있는 메뉴 클릭 시 이벤트 처리
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
@@ -150,22 +164,77 @@ class Bookmark : Fragment(){
                     .replace(R.id.content, Home())
                     .commitAllowingStateLoss()
             }
-            R.id.search -> {
+            R.id.bookmark_category_search -> {
 
             }
-            R.id.edit -> {
-
+            R.id.bookmark_category_edit -> {
+                show_categoryItem_checkBox()
+                editMenu!!.isVisible = false
+                searchMenu!!.isVisible = false
+                deleteMenu!!.isVisible = true
+                cancelMenu!!.isVisible = true
+            }
+            R.id.bookmark_category_cancel-> {
+                hide_categoryItem_checkBox()
+                editMenu!!.isVisible = true
+                searchMenu!!.isVisible = true
+                deleteMenu!!.isVisible = false
+                cancelMenu!!.isVisible = false
+            }
+            R.id.bookmark_category_delete -> {
+                delete_selectedItems()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun delete_selectedItems() {
+        var item_count = categoryListAdapter!!.itemCount - 1
+        var selectedString = ""
+        Log.d("응답", item_count.toString())
+        for (position in 0..item_count){
+            var checkBox = category_list_linearLayoutManager!!.getChildAt(position)!!.findViewById<CheckBox>(R.id.bookmark_category_checkbox)
+            if (checkBox.isChecked){
+                var categoryName = category_list_linearLayoutManager!!.getChildAt(position)!!.findViewById<TextView>(R.id.bookmark_category_list_item_categoryName).text.toString()
+                selectedString += categoryName + "_"
+                checkBox.isChecked = false
+            }
+        }
+        Log.d("응답", selectedString)
+        // db에서 카테고리 데이터 삭제
+        httpConn.delete_categoryData(selectedString)
+        // db에서 카테고리 데이터 가져오기
+        getCategoryResult = httpConn.get_categoryData()
+        // 카테고리 리스트 및 UI 업데이트
+        if (getCategoryResult != null) {
+            update_categoryList(getCategoryResult)
+        }
+    }
+
+    fun show_categoryItem_checkBox(){
+        var item_count = categoryListAdapter!!.itemCount - 1
+        for (position in 0..item_count){
+            var checkBoxLayout = category_list_linearLayoutManager!!.getChildAt(position)!!.findViewById<LinearLayout>(R.id.bookmark_category_checkbox_layout)
+            checkBoxLayout.visibility = View.VISIBLE
+        }
+    }
+
+    fun hide_categoryItem_checkBox(){
+        var item_count = categoryListAdapter!!.itemCount - 1
+        for (position in 0..item_count){
+            var checkBoxLayout = category_list_linearLayoutManager!!.getChildAt(position)!!.findViewById<LinearLayout>(R.id.bookmark_category_checkbox_layout)
+            checkBoxLayout.visibility = View.GONE
+        }
     }
 
 
     fun update_categoryList(resultData: String?){
         // resultData가 실패일 경우 처리해주는 부분이 없어서 가끔 오류남.
         if (resultData == "실패"){
-            Toast.makeText(context, "시스템 오류입니다. 다시 한번 시도해주세요.", Toast.LENGTH_LONG)
-        } else {
+            //categorylist_no_item_msg!!.visibility = View.VISIBLE
+        }
+        else {
+            //categorylist_no_item_msg!!.visibility = View.GONE
             var result_array: JSONArray = JSONArray(resultData)
             var jsonobj_index = result_array.length() - 1
             // db에서 가져온 데이터가 0 이상일 때만 카테고리 리스트 한번 리셋하고 리스트 업데이트
@@ -175,15 +244,15 @@ class Bookmark : Fragment(){
                     // 카테고리 이름
                     var categoryName = result_array.getJSONObject(i).getString("category_name").toString()
                     // 연결된 세부 목표 이름
-                    var detailedWork = result_array.getJSONObject(i).getString("detail_name").toString()
-                    if (detailedWork == ""){
-                        detailedWork = "연결된 세부 목표 없음"
+                    var bookmarkGoal = result_array.getJSONObject(i).getString("goal_name").toString()
+                    if (bookmarkGoal == ""){
+                        bookmarkGoal = "연결된 세부 목표 없음"
                     }
                     /* 카테고리 리스트에 아이템 추가 */
                     var newCategoryItem =
                         BookmarkActivity_category(
                             categoryName,
-                            detailedWork
+                            bookmarkGoal
                         )
                     categoryList.add(newCategoryItem)
                 }

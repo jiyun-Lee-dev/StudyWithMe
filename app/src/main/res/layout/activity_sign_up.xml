@@ -21,6 +21,7 @@
             android:contentDescription="@string/description_imageView"/>
 
         <EditText
+            android:fontFamily="@font/nanum2"
             android:id="@+id/id_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
             android:hint="id (인증 시 필요한 이메일 계정 입력)" />
 
         <EditText
+            android:fontFamily="@font/nanum2"
             android:id="@+id/password_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
             android:inputType="textPassword"/>
 
         <EditText
+            android:fontFamily="@font/nanum2"
             android:id="@+id/name_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,6 +55,7 @@
             android:hint="user name" />
 
         <Button
+            android:fontFamily="@font/nanum2"
             android:id="@+id/btn_signup"
             android:layout_below="@+id/name_sign"
             android:layout_width="wrap_content"

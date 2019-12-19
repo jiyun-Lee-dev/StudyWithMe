@@ -15,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.data.category
 import org.w3c.dom.Text
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -62,7 +61,6 @@ class BookmarkActivity_link_list_Adapter(val context: Context, val linkURLlist: 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val linkTitle_string = itemView?.findViewById<TextView>(R.id.bookmark_link_title)
         val linkURL_string = itemView?.findViewById<TextView>(R.id.bookmark_link_url)
-        val link_imageWindow = itemView?.findViewById<ImageView>(R.id.bookmark_link_image)
         val linkDescription_string = itemView?.findViewById<TextView>(R.id.bookmark_link_description)
         var bitmap: Bitmap? = null
 
@@ -71,7 +69,7 @@ class BookmarkActivity_link_list_Adapter(val context: Context, val linkURLlist: 
             linkURL_string.text = link.linkURL
             linkDescription_string.text = link.linkDescription
             // 이미지 url 에서 이미지 불러와서 비트맵으로 만들고 이미지뷰에 적용
-            getUserPostToImage(link.linkImage)
+            //getUserPostToImage(link.linkImage)
         }
 
         fun getUserPostToImage(imageURL: String) {
@@ -106,7 +104,7 @@ class BookmarkActivity_link_list_Adapter(val context: Context, val linkURLlist: 
                 mThread.join()
 
                 // 작업 thread에서 이미지를 불러오는 작업을 완료한 뒤 UI 작업을 할 수 있는 메인 Thread에서 ImageView에 이미지 지정
-                mActivity!!.runOnUiThread(Runnable { link_imageWindow.setImageBitmap(bitmap) })
+                //mActivity!!.runOnUiThread(Runnable { link_imageWindow.setImageBitmap(bitmap) })
 
             } catch (e: InterruptedException) {
                 e.printStackTrace()

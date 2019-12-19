@@ -18,7 +18,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.studywithme.MainActivity
 import com.example.studywithme.R
-import com.example.studywithme.SecondActivity
+
 import com.example.studywithme.data.App
 import com.example.studywithme.signup.SignUpActivity
 import kotlinx.android.synthetic.main.activity_login.*

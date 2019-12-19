@@ -12,11 +12,10 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/swm_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@color/mainColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:layout_weight="0.1"
         tools:ignore="MissingConstraints">
         <TextView
             android:id="@+id/toolbar_title"
@@ -25,7 +24,7 @@
             android:layout_gravity="center"
             android:longClickable="false"
             android:textColor="#ffffff"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout

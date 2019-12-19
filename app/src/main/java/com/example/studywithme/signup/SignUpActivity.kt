@@ -100,11 +100,13 @@ class SignUpActivity: AppCompatActivity() {
                 }
             }
 
+
          // 회원 가입 버튼 클릭 이벤트
          btn_signup.setOnClickListener{
              // id나 user가 중복되지 않는지 체크
              checkDuplicateUser_and_showResult()
          }
+
 
     }
 
@@ -125,6 +127,7 @@ class SignUpActivity: AppCompatActivity() {
     private fun isAllDataValid(): Boolean {
         Log.d("응답 테스트", id_sign_string + " " + password_sign_string + " "+ name_sign_string)
         return isIdValid(id_sign_string) && isPassWordValid(password_sign_string) && (name_sign_string!="" && name_sign_string!=null)
+
     }
 
     private fun checkDuplicateUser_and_showResult() {
@@ -169,7 +172,7 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun send_authenticateNum(user_emailAddress: String, user_name: String){
         // url 만들기
-        val url="http://10.0.2.2/sendAuthenticateString.php"
+        val url="http://203.245.10.33:8888/signup/sendAuthenticateString.php"
         // 데이터를 담아 보낼 바디 만들기
         val requestBody : RequestBody = FormBody.Builder()
             .add("user_name", user_name)
@@ -216,7 +219,8 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun insertUserDataToDB(user_emailAddress: String, user_password: String, user_name: String){
         // url 만들기
-        val url="http://10.0.2.2/insert_userData.php"
+        val url="http://203.245.10.33:8888/signup/insert_userData.php"
+
         // 데이터를 담아 보낼 바디 만들기
         val requestBody : RequestBody = FormBody.Builder()
             .add("user_password", user_password)

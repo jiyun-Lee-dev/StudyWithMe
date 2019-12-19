@@ -1,6 +1,4 @@
 package com.example.studywithme.data
 
-import android.media.Image
-
-data class UserRecommend (val img: String, val name:String, val goal:String){
+data class UserRecommend (val img:String, val id:String, val name:String, val goal:String){
 }
