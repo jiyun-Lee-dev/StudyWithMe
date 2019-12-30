@@ -42,7 +42,7 @@ class Calendar : Fragment() {
     var itemcnt = 0
     var goalListAdapter: Goal_list_adapter? = null
     // test용 사용자 아이디는 0으로 임시 설정했음
-    var userID = "1"
+    var userID = App.prefs.myUserIdData
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
