@@ -38,6 +38,7 @@ class SelectPostFrag : Fragment(){
 
         val view: View = inflater.inflate(R.layout.fragment_select_post, container, false)
         setHasOptionsMenu(true)
+
         val goal_id_str=arguments!!.getString("goal_id")
         val user_id_str=arguments!!.getString("user_id")
         val content_str=arguments!!.getString("content")
@@ -52,7 +53,8 @@ class SelectPostFrag : Fragment(){
         tag_txt=view.findViewById<TextView>(R.id.tag_txt)
 
         //db에서 tag 받아오기
-       get_tagData_from_DB(post_str)
+        get_tagData_from_DB(post_str)
+
 
         //text에 받아온 데이터 붙이기
         user_txt.setText(user_id_str)
@@ -62,13 +64,6 @@ class SelectPostFrag : Fragment(){
         date_txt.setText(date_str)
         tag_txt.setText(tag_str)
 
-        val fragmentManager: FragmentManager =getActivity()!!.supportFragmentManager
-        val fragmentTransaction:FragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.select_frag,MyboardFrag())
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-
-        fragmentManager.popBackStack()
 
         return view
     }
@@ -136,21 +131,11 @@ class SelectPostFrag : Fragment(){
         when(item?.itemId){
             //뒤로가기 버튼 클릭 시
             android.R.id.home -> {
-                fragmentManager!!.beginTransaction()
-                    .replace(R.id.content, WholeboardFrag())
-                    .commitAllowingStateLoss()
-            }
-            R.id.search -> {
-
-            }
-            R.id.edit -> {
-
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
 }
-
-
-

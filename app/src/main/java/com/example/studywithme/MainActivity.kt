@@ -1,24 +1,18 @@
 package com.example.studywithme
 
-import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import com.example.studywithme.Board.MyboardFrag
 import com.example.studywithme.Board.Write_post
-import com.example.studywithme.DialogFragment.DialogAddBookMarkLink
 import com.example.studywithme.fragment.*
-import com.example.studywithme.recommend.*
+import com.example.studywithme.fragment.Calendar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.bottomNavi
-import kotlinx.android.synthetic.main.bookmark_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -84,6 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     // 핸드폰 뒤로 가기 버튼 클릭 시 이벤트 처리. 근데 이건 메뉴에 있는 뒤로가기가 아님. 걍 핸드폰 백 버튼임.
     override fun onBackPressed() {
         /* 사용자가 뒤로가기 버튼을 터치할 때마다 현재 시간을 저장해놓는다.
@@ -97,12 +92,15 @@ class MainActivity : AppCompatActivity() {
         lastTimeBackPressed = System.currentTimeMillis()
     }
 
+
+
+
     /* 하단바에서 메뉴 선택하면 해당 프래그먼트로 replace해주는 함수를 호출
     함수프래그먼트를 다른 것으로 교체하고 이전 상태를 백 스택에 보존합니다.
     그러면 각 프래그먼트에서 뒤로가기 버튼 누르면 홈 프래그먼트로 돌아온다.*/
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.action_calendar -> {
+            R.id.action_schedule-> {
                 replaceFragment(calendarFrag)
                 return@OnNavigationItemSelectedListener true
             }
@@ -149,9 +147,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun fragmentChange_for_adapter(frag: Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.content, frag).commit()
-    }
     fun fromAdaptertoFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment)?.addToBackStack(null)?.commit()
     }

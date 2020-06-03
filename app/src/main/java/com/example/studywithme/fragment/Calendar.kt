@@ -3,7 +3,9 @@ package com.example.studywithme.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.databinding.adapters.DatePickerBindingAdapter
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -14,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TextView
 import com.example.studywithme.R
@@ -25,8 +28,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
+import java.lang.String.format
 import java.time.LocalDate
+import java.time.Year
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 
 class Calendar : Fragment() {
@@ -100,7 +106,9 @@ class Calendar : Fragment() {
                 .setPositiveButton("확인") { dialogInterface, i ->
 
                     var dialog_goalName_string = add_goal_dialogView.findViewById<EditText>(R.id.write_name_goal).text.toString()
-                    var dialog_dday_string = add_goal_dialogView.findViewById<EditText>(R.id.write_goal_day_goal).text.toString()
+                    val dialog_datepick = add_goal_dialogView.findViewById<DatePicker>(R.id.write_goal_day_goal)
+                    var dialog_dday_string = format("%d-%d-%d", dialog_datepick.year , dialog_datepick.month +1, dialog_datepick.dayOfMonth)
+
 
                     //var dialog_detailedWork_string = dialog_detailedWork_spinner.selectedItem.toString()
                     /* db에 데이터 추가 */

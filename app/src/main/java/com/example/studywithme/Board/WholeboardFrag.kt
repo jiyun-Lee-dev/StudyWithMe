@@ -32,6 +32,13 @@ class WholeboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
     var boardSearchList= arrayListOf<BoardData>()
     var activity: MainActivity? = null
 
+    var list_post= arrayListOf<BoardData>()
+    private lateinit var adapter_s:BoardRecycle_Adapter
+    internal var textlength=0
+    private lateinit var _recyclerView: RecyclerView
+    var boardSearchList= arrayListOf<BoardData>()
+    var activity: MainActivity? = null
+
 
 
     override fun onAttach(context: Context) {
@@ -48,9 +55,17 @@ class WholeboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_wholeboard, container, false)
-        Log.d("전체보드프래그먼트 응답", "ok")
 
         //게시글 list
+
+        _recyclerView=view.findViewById(R.id.mrecyclerView)
+        _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+
+
+        adapter_s = BoardRecycle_Adapter(view.context,list_post,this)
+        _recyclerView.adapter=adapter_s
+
+        boardSearchList.clear()
 
         var size_post=0
         val url_post = "http://203.245.10.33:8888/getWholePost.php"
@@ -101,12 +116,6 @@ class WholeboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
             }
         })
 
-        _recyclerView=view.findViewById(R.id.mrecyclerView)
-        _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
-
-
-        adapter_s = BoardRecycle_Adapter(view.context,list_post,this)
-        _recyclerView.adapter=adapter_s
 
 
 
@@ -126,7 +135,7 @@ class WholeboardFrag : Fragment(), AdapterView.OnItemSelectedListener{
                     if(list_post[i].goalID.toString().contains(str_sequence)||(list_post[i].postContent.contains(str_sequence)))
                         boardSearchList.add(list_post[i])
                 }
-                adapter_s= BoardRecycle_Adapter(view.context,boardSearchList, WholeboardFrag())
+                adapter_s= BoardRecycle_Adapter(view.context,boardSearchList, this@WholeboardFrag)
                 _recyclerView.adapter=adapter_s
                 _recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
             }

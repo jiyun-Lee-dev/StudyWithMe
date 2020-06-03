@@ -58,7 +58,7 @@
             android:layout_toLeftOf="@+id/button_favorite"
             android:layout_marginRight="10dp"
             android:layout_marginTop="7dp"
-            android:text="0"/>
+            android:text="likes"/>
         <TextView
             android:fontFamily="@font/nanum2"
             android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/id_content_item"
             android:gravity="right"
             android:textSize="12dp"

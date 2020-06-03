@@ -80,6 +80,7 @@
                 android:text="contents...."
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"/>
+
             <TextView
                 android:fontFamily="@font/nanum2"
                 android:id="@+id/date_txt"

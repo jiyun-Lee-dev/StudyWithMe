@@ -159,13 +159,13 @@ class DialogAddTodayDetailedWork: DialogFragment() {
         var temp_year = temp.format(DateTimeFormatter.ofPattern("yyyy"))
         var temp_month = temp.format(DateTimeFormatter.ofPattern("MM"))
         if (month != "") month_string = month
-            if (temp_year == detailedWorkYear_string){
-                if (temp_month.toInt() <= month_string.toInt() ){
-                    temp_result = true
-                }
-            } else {
+        if (temp_year == detailedWorkYear_string){
+            if (temp_month.toInt() <= month_string.toInt() ){
                 temp_result = true
             }
+        } else {
+            temp_result = true
+        }
         return month != "" && (month_string.toInt() in 1..12) && temp_result
     }
 
@@ -201,4 +201,3 @@ class DialogAddTodayDetailedWork: DialogFragment() {
 
 
 }
-

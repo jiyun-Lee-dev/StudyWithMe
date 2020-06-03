@@ -66,7 +66,19 @@
             android:layout_gravity="bottom"
             />
 
+        <DatePicker
+            android:id="@+id/write_goal_day_goal"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:ems="10"
+            android:fontFamily="@font/nanum2" />
 
+
+<!--
         <EditText
             android:fontFamily="@font/nanum2"
             android:id="@+id/write_goal_day_goal"
@@ -75,10 +87,11 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:hint="날짜를 입력해주세요 ex) 2019-10-11"
+            android:hint="날짜를 입력해주세요"
             android:inputType="textNoSuggestions"
             android:privateImeOptions="defaultInputmode=korean"
             />
+-->
 
     </LinearLayout>
 

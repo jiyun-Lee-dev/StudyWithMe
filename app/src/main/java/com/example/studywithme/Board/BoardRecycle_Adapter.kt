@@ -1,14 +1,12 @@
 package com.example.studywithme.Board
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.RecyclerView
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +36,14 @@ class BoardRecycle_Adapter(val context: Context,val boardList: ArrayList<BoardDa
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        val activity = fragment_s.activity as MainActivity
+
         holder.bind(boardList[position],context)
         holder.itemView.setOnClickListener{
             var fragment:Fragment=SelectPostFrag()
-            var bundle: Bundle= Bundle()
+            var bundle: Bundle= Bundle(6)
+
             bundle.putString("user_id",holder.userID.text.toString())
             bundle.putString("goal_id",holder.goalName.text.toString())
             bundle.putString("content",holder.content_txt.text.toString())
@@ -50,8 +52,7 @@ class BoardRecycle_Adapter(val context: Context,val boardList: ArrayList<BoardDa
             bundle.putString("tag",holder.tag_txt.text.toString())
 
             fragment.arguments=bundle
-            activity = fragment_s.activity as MainActivity?
-            activity?.fragmentChange_for_adapter(fragment)
+            activity.fromAdaptertoFragment(fragment)
            /* val fragmentManager:FragmentManager=activity!!.supportFragmentManager
             val fragmentTransaction:FragmentTransaction=fragmentManager.beginTransaction()
             fragmentTransaction.replace()
@@ -77,11 +78,10 @@ class BoardRecycle_Adapter(val context: Context,val boardList: ArrayList<BoardDa
             hashtag.setOnclickEventListener(object :HashTag.ClickEventListener{
                 override fun onClickEvent(data: String) {
                     var fragment:Fragment=TagSearchPost()
-                    var bundle: Bundle= Bundle()
+                    var bundle: Bundle= Bundle(1)
                     bundle.putString("tag_name",data)
                     fragment.arguments=bundle
-                    activity = fragment_s.activity as MainActivity?
-                    activity?.fragmentChange_for_adapter(fragment)
+                    activity.fromAdaptertoFragment(fragment)
 
                 }
 
@@ -137,7 +137,3 @@ class BoardRecycle_Adapter(val context: Context,val boardList: ArrayList<BoardDa
     }
 
    }
-
-
-
-

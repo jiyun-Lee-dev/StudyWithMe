@@ -233,8 +233,7 @@ class Bookmark_link_list: Fragment() {
 
     fun update_linkDataList(resultData: String?) {
         if (resultData == "실패"){
-            Toast.makeText(this.context, "시스템 오류입니다. 잠시만 기다려주세요", Toast.LENGTH_LONG)
-            getLinkResult = httpConn.get_bookmarkLinkData(categoryName)
+            Toast.makeText(this.context, "아직 추가된 링크가 없습니다.", Toast.LENGTH_LONG)
             return
         } else {
             var result_array: JSONArray = JSONArray(resultData)

@@ -1,9 +1,6 @@
 package com.example.studywithme.recommend
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
@@ -15,13 +12,11 @@ import android.widget.ImageView
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.data.UserRecommend
-import com.example.studywithme.fragment.Profile
 import kotlinx.android.synthetic.main.recommend_user_item.view.*
 import okhttp3.*
 import java.io.IOException
 import com.example.studywithme.MainActivity
-
-
+import com.example.studywithme.fragment.Profile
 
 class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, val topFrag: Fragment): RecyclerView.Adapter<UserAdapter.UserViewHolder> (){
 
@@ -54,13 +49,14 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
         val button = holder.follow_button
 
         button?.setOnClickListener(View.OnClickListener {
+/*
             val dialog = AlertDialog.Builder(context)
 
             dialog
                 .setMessage("친구를 팔로우 했어요!")
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i -> })
                 .show()
-
+*/
             val url = "http://203.245.10.33:8888/recommend/UserFollow.php"
             val userid:String = App.prefs.myUserIdData
             follow_id = items[position].id
@@ -79,21 +75,30 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
             client.newCall(request).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
                     Log.d("응답", "팔로우완료")
+                    /*
                     (context as Activity).runOnUiThread {
                         //change View Data
                         items.removeAt(position)
                         notifyItemRemoved(position)
                         notifyDataSetChanged()
                     }
+
+                     */
                 }
                 override fun onFailure(call: Call, e: IOException) {
                     Log.e("요청 ", e.toString())
                 }
             })
-
+            if(button.text=="팔로우"){
+                button.text = "팔로우 취소"
+                button.setBackgroundResource(R.drawable.unfollow_btn_shape)
+            }
+            else{
+                button.text = "팔로우"
+                button.setBackgroundResource(R.drawable.follow_btn_shape)
+            }
 
         })
-
 
         val user_item = holder.user_item
         follow_id = items[position].id
@@ -106,6 +111,7 @@ class UserAdapter(val context: Context, val items: MutableList<UserRecommend>, v
 
             activity.fromAdaptertoFragment(fragment)
         })
+
 
 
     }

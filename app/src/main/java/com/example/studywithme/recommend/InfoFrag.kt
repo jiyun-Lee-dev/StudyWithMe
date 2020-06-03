@@ -4,12 +4,13 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import com.example.studywithme.MainActivity
@@ -24,14 +25,14 @@ import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-
+import org.w3c.dom.Text
 
 
 class InfoFrag : Fragment() {
 
     val infoList = mutableListOf<InfoRecommend>()
     val userid:String = App.prefs.myUserIdData
-    var chosenGoal:String = "테스트"
+    var chosenGoal:String = ""
 
     var query = ""
     var weburl = ""
@@ -45,6 +46,7 @@ class InfoFrag : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_info, container, false)
+        val recommend_info_list_has_no_item_msg:TextView = view.findViewById(R.id.recommend_info_list_has_no_item_msg)
 
         mContext=view.context
         rv_info_list = view.findViewById(R.id.rv_info_list)
@@ -53,6 +55,18 @@ class InfoFrag : Fragment() {
         val bundle = arguments
         if (bundle != null) {
             chosenGoal = bundle.getString("chosenGoal")
+        }
+        Log.d("infofrag", chosenGoal)
+        query = chosenGoal
+        weburl="https://www.google.com/search?q=" + query + "&num=30"
+
+        if(chosenGoal.equals("")){
+            recommend_info_list_has_no_item_msg.text = "목표를 선택해 주세요."
+            recommend_info_list_has_no_item_msg.visibility = VISIBLE
+        }
+        else {
+            recommend_info_list_has_no_item_msg.visibility = GONE
+
         }
         Log.d("infofrag", chosenGoal)
         query = chosenGoal

@@ -12,11 +12,11 @@
         android:fillViewport="true"
         android:scrollbars="none">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -28,11 +28,11 @@
                     app:layout_constraintBottom_toTopOf="@+id/home_today_done_rate_layout"
                     app:layout_constraintStart_toStartOf="parent">
                     <TextView
+                        android:fontFamily="@font/nanum2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/nanum2"
                         android:text="오늘 나의 달성률"
                         android:textColor="#24466B "
                         android:textSize="20dp"

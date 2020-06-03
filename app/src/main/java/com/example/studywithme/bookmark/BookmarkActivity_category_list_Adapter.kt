@@ -52,7 +52,7 @@ class BookmarkActivity_category_list_Adapter (val context: Context, var category
             var bundle: Bundle = Bundle()
             bundle.putString("category_name", holder?.categoryName.text.toString())
             if (topFragment.arguments == null){
-               Log.d("카테고리 프래그먼트 응답", "번들 없음")
+                Log.d("카테고리 프래그먼트 응답", "번들 없음")
             } else {
                 Log.d("카테고리 프래그먼트 응답", "번들 있음")
                 var sharedLinkURL = topFragment.arguments!!.getString("sharedLinkURL")

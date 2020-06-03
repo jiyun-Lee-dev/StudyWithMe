@@ -27,7 +27,7 @@ class Recommend : Fragment() {
 
     val goalList = ArrayList<String>()
     val userid:String = App.prefs.myUserIdData
-    var chosenGoal:String = "테스트중"
+    var chosenGoal:String = ""
     var tabLayout: TabLayout? = null
     var viewPager: ViewPager? = null
     var goal=""
@@ -95,7 +95,8 @@ class Recommend : Fragment() {
         }
 
 
-        val adapter = RecommendAdapter(childFragmentManager,goal)
+        val adapter = RecommendAdapter(childFragmentManager, goal)
+
         viewPager!!.adapter = adapter
         viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
@@ -118,7 +119,6 @@ class Recommend : Fragment() {
 
         var toolbarTitle: TextView = activity!!.findViewById(R.id.toolbar_title)
         toolbarTitle.text = "추천"
-
         chooseGoal(chosenGoal)
     }
 

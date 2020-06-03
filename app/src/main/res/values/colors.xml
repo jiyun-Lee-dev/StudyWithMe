@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="mainColor">#83CAC8</color>
+    <color name="mainColor">#83cac8</color>
+    <color name="unFollow">#969C9C</color>
     <color name="editColor">#ebeded</color>
 </resources>

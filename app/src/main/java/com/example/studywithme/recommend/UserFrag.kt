@@ -17,22 +17,16 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
 import com.example.studywithme.data.App
-import com.example.studywithme.data.Goal
-import com.example.studywithme.data.InfoRecommend
 import kotlinx.android.synthetic.main.fragment_user.*
 import okhttp3.*
 import org.json.JSONArray
-import org.jsoup.HttpStatusException
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
 import java.io.IOException
 
 class UserFrag : Fragment(){
 
     val userList = mutableListOf<UserRecommend>()
     val userid:String = App.prefs.myUserIdData
-    var chosenGoal:String = "테스트"
+    var chosenGoal:String = ""
 
     var mContext: Context? = null
     var rv_user_list: RecyclerView? = null
@@ -128,8 +122,13 @@ class UserFrag : Fragment(){
                         itemcnt = rv_user_list!!.adapter!!.getItemCount()
                         rv_user_list!!.adapter?.notifyDataSetChanged()
 
-                        if(itemcnt <= 0){
-                            recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없습니다."
+                        if(chosenGoal.equals("")){
+                            recommend_user_list_has_no_item_msg.text = "목표를 선택해 주세요."
+                            recommend_user_list_has_no_item_msg.visibility = VISIBLE
+                        }
+                        else if(itemcnt <= 0){
+                            recommend_user_list_has_no_item_msg.text = "같은 목표를 가진 친구가 없어요."
+
                             recommend_user_list_has_no_item_msg.visibility = VISIBLE
                         }
                         else {

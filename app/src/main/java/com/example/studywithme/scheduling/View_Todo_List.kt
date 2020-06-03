@@ -14,17 +14,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TextView
-import com.example.studywithme.Board.WholeboardFrag
 import com.example.studywithme.R
 import com.example.studywithme.data.App
 import com.example.studywithme.fragment.Calendar
-
-import com.example.studywithme.scheduling.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_calendar_view_todo_list.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
@@ -111,7 +107,13 @@ class View_Todo_List : Fragment() {
                 .setPositiveButton("확인") { dialogInterface, i ->
 
                     var dialog_todoName_string = add_todo_dialogView.findViewById<EditText>(R.id.write_name_todo).text.toString()
-                    var dialog_dday_string = add_todo_dialogView.findViewById<EditText>(R.id.write_dday_todo).text.toString()
+                    val dialog_datepick = add_todo_dialogView.findViewById<DatePicker>(R.id.write_dday_todo)
+                    var dialog_dday_string = java.lang.String.format(
+                        "%d-%d-%d",
+                        dialog_datepick.year,
+                        dialog_datepick.month + 1,
+                        dialog_datepick.dayOfMonth
+                    )
 
 
                     //var dialog_detailedWork_string = dialog_detailedWork_spinner.selectedItem.toString()
@@ -321,9 +323,8 @@ class View_Todo_List : Fragment() {
         when(item?.itemId){
             //뒤로가기 버튼 클릭 시
             android.R.id.home -> {
-                fragmentManager!!.beginTransaction()
-                    .replace(R.id.content, Calendar())
-                    .commitAllowingStateLoss()
+                fragmentManager!!.popBackStack()
+                fragmentManager!!.beginTransaction().commit()
             }
             R.id.search -> {
 
